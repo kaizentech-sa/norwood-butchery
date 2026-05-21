@@ -1,0 +1,50 @@
+/* Globals */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--mainFont);
+    background-color: var(--mainBackground);
+    /* overflow-x on body only — setting it on <html> breaks iOS Safari scroll */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Applied by JS when a fullscreen overlay is open */
+body.scroll-locked {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    /* top is set inline by JS to preserve scroll position */
+}
+
+* {
+    box-sizing: border-box;
+    letter-spacing: 0.1px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+h1, h2, h3 {
+    font-family: var(--displayFont);
+}

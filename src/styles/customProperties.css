@@ -1,0 +1,41 @@
+/* Cinzel — premium display font for headings */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+/* Calistoga — body / brand font */
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+
+/* Custom Properties */
+:root {
+    /* ── Brand Colours (Norwood Halal Butchery) ── */
+    --gold-100: #C9A84C;
+    --gold-75:  #A8893B;
+    --gold-50:  #E8D08A;
+    --gold-dark: #7A6120;
+
+    --red-100:  #CC1A1A;
+    --red-75:   #A01515;
+
+    --cream-100: #F5F0E8;
+    --cream-75:  #D6CCBC;
+
+    /* ── Neutrals ── */
+    --white-100: #ffffff;
+    --white-50:  #ECECEC;
+    --white-25:  #898989;
+
+    --black-100: #000000;
+    --black-90:  #0A0A0A;
+    --black-75:  #141414;
+    --black-50:  #1E1E1E;
+    --black-25:  #2A2A2A;
+
+    /* ── Semantic ── */
+    --linkHover:       var(--gold-100);
+    --mainBackground:  var(--black-90);
+    --filterBlack:     #00000055;
+    --footerLines:     var(--gold-dark);
+    --viewLines:       #2E2E2E;
+
+    /* ── Fonts ── */
+    --displayFont: 'Cinzel', serif;
+    --mainFont:    'Calistoga', cursive;
+}

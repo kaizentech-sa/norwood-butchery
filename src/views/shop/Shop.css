@@ -1,0 +1,128 @@
+.shop-banner {
+    background-image: url(../../assets/img/others/shop-banner.webp);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 3.5em;
+    position: relative;
+}
+
+.shop-banner::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.35);
+}
+
+.shop-main {
+    background-color: var(--black-75);
+    padding: 1.5em 1em 3em;
+    margin-bottom: 4em;
+}
+
+/* Header */
+.sm-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    margin: auto;
+    margin-bottom: 2em;
+    max-width: 1680px;
+    padding: 0 0.5em;
+}
+
+.sm-header h1 {
+    color: var(--cream-100);
+    font-family: var(--displayFont);
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.smh-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark));
+}
+
+.smh-line:last-child {
+    background: linear-gradient(to left, transparent, var(--gold-dark));
+}
+
+/* Category filter tabs */
+.sm-cat-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6em 1.2em;
+    margin-bottom: 3em;
+    padding: 0 0.5em;
+}
+
+.sm-cat {
+    border: 1px solid var(--gold-dark);
+    background-color: transparent;
+    color: var(--white-25);
+    font-family: var(--displayFont);
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 1px;
+    transition: all 0.3s ease-out;
+    min-height: 36px;
+}
+
+.sm-cat:hover {
+    color: var(--gold-100);
+    border-color: var(--gold-100);
+    background-color: rgba(201,168,76,0.08);
+}
+
+.sm-cat.active {
+    background-color: var(--gold-100);
+    color: var(--black-100);
+    border-color: var(--gold-100);
+}
+
+/* Shop legend */
+.shop-legend {
+    text-align: center;
+    color: var(--white-25);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 2em;
+    max-width: 520px;
+}
+
+@media (min-width: 480px) {
+    .sm-header h1 {
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
+
+    .sm-cat-wrapper {
+        gap: 0.8em 1.8em;
+    }
+}
+
+@media (min-width: 768px) {
+    .shop-main {
+        padding: 2em 2em 4em;
+    }
+
+    .sm-header h1 {
+        font-size: 1.3rem;
+    }
+}

@@ -1,0 +1,39 @@
+.item-list {
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    align-items: start;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    row-gap: 2em;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 2em;
+    padding: 0 0.5em;
+}
+
+@media (min-width: 480px) {
+    .item-list {
+        gap: 1.4em;
+        row-gap: 2.5em;
+    }
+}
+
+@media (min-width: 640px) {
+    .item-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .item-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .item-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}

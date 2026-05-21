@@ -1,0 +1,285 @@
+/* ════════════════════════════════════
+   Halal Announcement Bar
+════════════════════════════════════ */
+.halal-bar {
+    width: 100%;
+    background-color: var(--gold-100);
+    padding: 5px 0;
+    overflow: hidden;           /* clips the scrolling text */
+    position: relative;
+}
+
+/* Marquee wrapper — clips overflow */
+.halal-bar-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: marqueeScroll 22s linear infinite;
+    will-change: transform;
+}
+
+.halal-bar-inner span {
+    font-family: var(--displayFont);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--black-100);
+    text-transform: uppercase;
+    padding-right: 4em;         /* gap between repeats */
+    flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* On larger screens, pause the marquee and just centre */
+@media (min-width: 900px) {
+    .halal-bar-inner {
+        animation: none;
+        justify-content: center;
+    }
+
+    .halal-bar-inner span:last-child {
+        display: none;          /* hide the duplicate */
+    }
+}
+
+/* ════════════════════════════════════
+   Navbar
+════════════════════════════════════ */
+.navbar {
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    background-color: var(--black-90);
+    border-bottom: 1px solid var(--gold-dark);
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1680px;
+    margin: auto;
+    padding: 0.5em 0.8em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ── Logo ── */
+.navbar-logo {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
+}
+
+@media (min-width: 480px) {
+    .navbar-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-logo {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+/* ── Right nav ── */
+.nc-right {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    position: relative;
+}
+
+@media (min-width: 480px) {
+    .nc-right {
+        gap: 0.6em;
+    }
+}
+
+@media (min-width: 768px) {
+    .nc-right {
+        gap: 1.6em;
+    }
+}
+
+/* ── Nav text links (desktop only) ── */
+.navbar-link {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cream-75);
+    font-family: var(--displayFont);
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    transition: color 0.25s ease;
+    cursor: pointer;
+}
+
+.navbar-link:hover {
+    color: var(--gold-100);
+}
+
+.nbl-section {
+    display: none;
+}
+
+.nbl-cat {
+    background-color: transparent;
+    border: none;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* ── Dropdown ── */
+.transparent-div {
+    width: 160px;
+    height: 20px;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cat-dropdown-menu {
+    position: absolute;
+    top: 46px;
+    background-color: var(--black-50);
+    border: 1px solid var(--gold-dark);
+    padding: 1.4em;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    border-radius: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: none;
+    min-width: 160px;
+    z-index: 10;
+}
+
+.cat-dropdown-menu::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom-color: var(--black-50);
+    top: -20px;
+    left: 24px;
+}
+
+.cat-dropdown-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+}
+
+.cdm-item-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8em;
+    text-transform: uppercase;
+    color: var(--cream-75);
+    font-family: var(--displayFont);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    transition: color 0.25s ease;
+}
+
+.cdm-item-link:hover {
+    color: var(--gold-100);
+}
+
+.cdm-item-link:hover .dd-item-icon {
+    color: var(--gold-100);
+}
+
+.dd-item-icon {
+    width: 14px;
+    color: var(--gold-dark);
+    transition: color 0.25s ease;
+}
+
+/* ── Icon buttons (shared) ── */
+.hamburguer-menu,
+.login-btn,
+.user-btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    color: var(--cream-75);
+}
+
+.hamburguer-menu:hover,
+.login-btn:hover,
+.user-btn:hover {
+    background-color: rgba(255,255,255,0.06);
+}
+
+.hamburguer-icon {
+    width: 20px;
+    color: inherit;
+}
+
+.login-icon,
+.user-icon {
+    width: 20px;
+    color: inherit;
+    transition: color 0.25s ease;
+}
+
+.login-btn:hover .login-icon,
+.user-btn:hover .user-icon {
+    color: var(--gold-100);
+}
+
+/* ── Lower navbar behind fullscreen overlays (hamburger / modal) ── */
+body.scroll-locked .navbar,
+body.scroll-locked .halal-bar {
+    z-index: 1;
+}
+
+/* ── User button needs relative positioning for UserInfo dropdown ── */
+.user-btn {
+    position: relative;
+    font-size: 0.95rem;
+    z-index: 2;
+}
+
+/* ── Responsive: show full nav at 598px+ ── */
+@media (min-width: 598px) {
+    .hamburguer-menu {
+        display: none;
+    }
+
+    .nbl-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .cat-dropdown-menu {
+        display: block;
+    }
+
+    .transparent-div {
+        display: block;
+    }
+}

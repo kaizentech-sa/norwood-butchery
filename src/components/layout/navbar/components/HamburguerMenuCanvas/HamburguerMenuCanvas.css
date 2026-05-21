@@ -1,0 +1,176 @@
+/* ── Backdrop ── */
+.hm-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 50;
+    transition: opacity 0.35s ease-out;
+    /* Prevent touch events reaching elements below */
+    touch-action: none;
+}
+
+/* ── Slide-in Panel ── */
+.hm-canva {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(320px, 85vw);
+    height: 100%;
+    height: 100dvh;           /* dynamic viewport height — avoids browser-chrome overlap */
+    background-color: #080808;
+    border-right: 1px solid var(--gold-dark);
+    z-index: 51;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+    overflow: hidden;
+    /* Prevent the panel itself from scrolling on touch */
+    touch-action: none;
+    overscroll-behavior: contain;
+}
+
+/* Logo at the top */
+.hm-logo {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background-color: transparent;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+.close-icon {
+    color: var(--cream-75);
+    width: 28px;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover .close-icon {
+    color: var(--gold-100);
+}
+
+/* Go-back button */
+.goback-btn-hm {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    border: none;
+    background-color: transparent;
+    transform: translateX(-80px);
+    transition: transform 0.3s ease-out;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.goback-btn-hm:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+.goback-icon-hm {
+    width: 24px;
+    color: var(--cream-75);
+    transition: color 0.2s ease;
+}
+
+.goback-btn-hm:hover .goback-icon-hm {
+    color: var(--gold-100);
+}
+
+/* Nav links */
+.nbl-hm {
+    font-family: var(--displayFont) !important;
+    font-size: 1.25rem !important;
+    letter-spacing: 3px;
+    color: var(--cream-75);
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    padding: 0.3em 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nbl-hm:hover,
+.nbl-hm:active {
+    color: var(--gold-100) !important;
+}
+
+.nbl-hm-cat {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Gold divider line between links */
+.main-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    transition: transform 0.35s ease-out;
+    padding-top: 4em;
+    width: 100%;
+}
+
+.cat-links {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5em;
+    transform: translateX(100vw);
+    transition: transform 0.35s ease-out, opacity 0.2s ease;
+    padding-top: 4em;
+    width: 100%;
+}
+
+/* Halal badge at bottom */
+.hm-halal-badge {
+    position: absolute;
+    bottom: 24px;
+    font-family: var(--displayFont);
+    font-size: 0.58rem;
+    letter-spacing: 2px;
+    color: var(--gold-100);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+}
+
+/* Hide on desktop */
+@media (min-width: 598px) {
+    .hm-canva,
+    .hm-backdrop {
+        display: none !important;
+    }
+}

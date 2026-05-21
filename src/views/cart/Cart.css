@@ -1,0 +1,15 @@
+.cart {
+    padding: 1.5em 1em 4em;
+    margin-bottom: 2em;
+}
+
+.cart-main {
+    max-width: 1098px;
+    margin: auto;
+}
+
+@media (min-width: 640px) {
+    .cart {
+        padding: 2em 2em 5em;
+    }
+}

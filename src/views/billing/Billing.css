@@ -1,0 +1,157 @@
+.billing {
+    margin-top: 2em !important;
+    margin-bottom: 5em !important;
+    width: 94%;
+    margin: auto;
+    padding: 0 0.5em;
+}
+
+.billing-main-grid {
+    display: grid;
+    grid-template-columns: 100%;
+    column-gap: 2em;
+    row-gap: 3em;
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    color: var(--cream-75);
+}
+
+.bi-title, .or-title {
+    font-family: var(--displayFont);
+    font-weight: 600;
+    margin-bottom: 1.5em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--gold-100);
+}
+
+.bi-fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1em;
+}
+
+.name-lastname, .postal-phone {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+}
+
+.name-lastname > .form-field,
+.postal-phone > .form-field {
+    width: 100%;
+}
+
+@media (min-width: 480px) {
+    .name-lastname, .postal-phone {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 900px) {
+    .billing-main-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .billing-main-grid {
+        grid-template-columns: 55% calc(45% - 3em);
+        column-gap: 3em;
+    }
+}
+
+.or-cost {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2em;
+    margin-bottom: 3em;
+    border: 1px solid var(--gold-dark);
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.or-cost span {
+    font-size: 0.95rem;
+    color: var(--cream-100);
+}
+
+.or-cost label {
+    font-size: 0.75rem;
+    color: var(--white-25);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.orc-subtotal {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--black-25);
+    padding: 1.2em;
+}
+
+.orc-shipping {
+    display: flex;
+    align-items: flex-start;
+    gap: 1em;
+    justify-content: space-between;
+    padding: 1.2em;
+    background-color: var(--black-50);
+    flex-wrap: wrap;
+}
+
+.orcs-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+}
+
+.orcs-prices span {
+    font-size: 0.8rem;
+}
+
+.orcs-select {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+}
+
+.orcs-select > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    margin-left: 0.4em;
+    margin-bottom: 2.8em;
+}
+
+.payment-options div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+}
+
+.payment-options label {
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.finish-order-btn {
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 14px;
+    letter-spacing: 2px;
+}

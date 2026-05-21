@@ -1,0 +1,15 @@
+.bs-products-wrapper {
+    margin-bottom: 2em;
+    padding: 0 0.5em;
+}
+
+.bs-products-wrapper h3 {
+    color: var(--gold-100);
+    font-family: var(--displayFont);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}

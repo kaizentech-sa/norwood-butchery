@@ -1,0 +1,172 @@
+.footer {
+    width: 100%;
+    margin-top: 4em;
+    overflow: hidden;
+    background-color: var(--black-75);
+    border-top: 1px solid var(--gold-dark);
+}
+
+.footer-container {
+    width: 92%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 3em 0 1.5em;
+}
+
+/* ── Header ── */
+.footer-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    margin-bottom: 2.5em;
+}
+
+.fh-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dark));
+}
+
+.fh-line:last-child {
+    background: linear-gradient(to left, transparent, var(--gold-dark));
+}
+
+.fh-logo img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ── Body grid ── */
+.footer-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5em;
+    margin-bottom: 2.5em;
+}
+
+@media (min-width: 640px) {
+    .footer-body {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (min-width: 900px) {
+    .footer-body {
+        grid-template-columns: 2fr 1fr 1.5fr;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+}
+
+/* ── Columns ── */
+.footer-col-title {
+    font-family: var(--displayFont);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-100);
+    margin-bottom: 1em;
+    font-weight: 600;
+}
+
+.footer-tagline {
+    color: var(--white-25);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    margin-bottom: 1.2em;
+    font-style: italic;
+}
+
+.footer-halal-badge {
+    display: inline-block;
+    font-family: var(--displayFont);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--black-100);
+    background-color: var(--gold-100);
+    padding: 5px 12px;
+    font-weight: 700;
+}
+
+/* ── Nav links ── */
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+}
+
+.footer-link {
+    font-family: var(--displayFont);
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    color: var(--white-25);
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+
+.footer-link:hover {
+    color: var(--gold-100);
+}
+
+/* ── Contact ── */
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+    margin-bottom: 1.2em;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7em;
+    color: var(--white-25);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.footer-contact-icon {
+    width: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--gold-dark);
+}
+
+.footer-hours {
+    font-size: 0.72rem;
+    color: var(--white-25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+.footer-hours strong {
+    color: var(--cream-75);
+}
+
+/* ── Bottom ── */
+.footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.footer-copyright {
+    font-family: var(--displayFont);
+    font-size: 0.6rem;
+    color: var(--white-25);
+    letter-spacing: 1px;
+    text-align: center;
+    padding-bottom: 0.5em;
+}

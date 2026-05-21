@@ -1,0 +1,50 @@
+.cart-btn {
+    border: none;
+    background: transparent;
+    position: relative;
+    padding: 6px;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    color: var(--cream-75);
+}
+
+.cart-btn:hover {
+    background-color: rgba(255,255,255,0.06);
+}
+
+.cart-icon {
+    width: 20px;
+    color: inherit;
+    transition: color 0.25s ease;
+    display: block;
+}
+
+.cart-btn:hover .cart-icon {
+    color: var(--gold-100);
+}
+
+/* Badge sits top-right of the icon — never bleeds off screen */
+.cart-items-amount {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    background-color: var(--gold-100);
+    color: var(--black-100);
+    font-family: var(--displayFont);
+    font-size: 0.55rem;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    pointer-events: none;
+}
