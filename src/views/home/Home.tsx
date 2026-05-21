@@ -61,7 +61,7 @@ export const Home = () => {
                 percentage: 0
             })
         }, 500);
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>

@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-// Router
-import { useNavigate } from 'react-router-dom';
 // Components
 import { ViewHeader } from 'components/common/viewHeader/ViewHeader';
 import { BillingCartResume } from './components/billingCartResume/BillingCartResume';
@@ -18,8 +16,6 @@ import './Billing.css';
 export const Billing = () => {
 
     const { products, expressShipping, cardPayment, setExpressShipping, setCardPayment, clear, getSubtotal, getTotal, cartLength } = useContext(CartContext);
-
-    const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');

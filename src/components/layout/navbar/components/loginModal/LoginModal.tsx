@@ -11,7 +11,7 @@ import './LoginModal.css';
 export const LoginModal = () => {
     
     /* LS Modal Context. */
-    const { isOpen, closeModal } = useContext(LSModalContext);
+    const { isOpen } = useContext(LSModalContext);
 
     /* Obtain all the necesary states and functions from
     the hook useLSForm(). */

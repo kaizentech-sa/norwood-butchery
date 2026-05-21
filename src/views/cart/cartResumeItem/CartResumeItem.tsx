@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 // Import icons
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as MinusIcon } from 'assets/icons/minus.svg';

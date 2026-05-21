@@ -19,7 +19,7 @@ type props = {
 export const ProductDetail = ({ product }: props) => {
 
     // Product properties
-    const { id, name, price, description, img, category, cartAmount, stock } = product;
+    const { id, name, price, description, img, category, stock } = product;
 
     const { addProduct, isInCart, getProduct } = useContext(CartContext);
 
