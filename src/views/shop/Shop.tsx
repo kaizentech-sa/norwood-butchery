@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useShop } from 'shop/core/ShopProvider';
 import { formatPrice } from 'shop/utils/helpers';
 import type { Product } from 'shop/core/ports';
 import './Shop.css';
+
+type PriceSort = 'default' | 'price-asc' | 'price-desc';
 
 export const Shop = () => {
     const { category } = useParams();
@@ -11,6 +13,10 @@ export const Shop = () => {
     const { products, categories, cart } = useShop();
     const { fetchCategories } = categories;
     const { fetchProducts, products: productList, loading, error } = products;
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [debouncedSearch, setDebouncedSearch] = useState('');
+    const [priceSort, setPriceSort] = useState<PriceSort>('default');
 
     const activeCategory = category || 'all';
 
@@ -22,23 +28,43 @@ export const Shop = () => {
         return match?.id;
     }, [activeCategory, categories.categories]);
 
+    const sortParams = useMemo(() => {
+        if (priceSort === 'price-asc') {
+            return { orderBy: 'price' as const, order: 'asc' as const };
+        }
+        if (priceSort === 'price-desc') {
+            return { orderBy: 'price' as const, order: 'desc' as const };
+        }
+        return {};
+    }, [priceSort]);
+
     useEffect(() => {
         fetchCategories({ hideEmpty: true });
     }, [fetchCategories]);
 
     useEffect(() => {
+        const timer = window.setTimeout(() => {
+            setDebouncedSearch(searchQuery.trim());
+        }, 400);
+
+        return () => window.clearTimeout(timer);
+    }, [searchQuery]);
+
+    useEffect(() => {
         fetchProducts({
             categoryId,
+            search: debouncedSearch || undefined,
             perPage: 12,
             page: 1,
+            ...sortParams,
         });
-    }, [categoryId, fetchProducts]);
+    }, [categoryId, debouncedSearch, sortParams, fetchProducts]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const handleClickCategory = (slug: string) => {
+    const handleCategoryChange = (slug: string) => {
         navigate(`/shop/${slug}`);
     };
 
@@ -56,8 +82,8 @@ export const Shop = () => {
         cart.addItem(product);
     };
 
-    const categoryButtons = [
-        { slug: 'all', label: 'All Products' },
+    const categoryOptions = [
+        { slug: 'all', label: 'All Categories' },
         ...categories.categories.map((item) => ({
             slug: item.slug || String(item.id),
             label: item.name,
@@ -75,16 +101,45 @@ export const Shop = () => {
                     <div className="smh-line"></div>
                 </div>
 
-                <div className="sm-cat-wrapper">
-                    {categoryButtons.map((item) => (
-                        <button
-                            key={item.slug}
-                            onClick={() => handleClickCategory(item.slug)}
-                            className={`sm-cat${activeCategory === item.slug ? ' active' : ''}`}
+                <div className="shop-toolbar">
+                    <label className="shop-search">
+                        <span className="shop-toolbar-label">Search</span>
+                        <input
+                            type="search"
+                            value={searchQuery}
+                            onChange={(event) => setSearchQuery(event.target.value)}
+                            placeholder="Search products..."
+                            aria-label="Search products"
+                        />
+                    </label>
+
+                    <label className="shop-category-select">
+                        <span className="shop-toolbar-label">Category</span>
+                        <select
+                            value={activeCategory}
+                            onChange={(event) => handleCategoryChange(event.target.value)}
+                            aria-label="Filter by category"
                         >
-                            {item.label}
-                        </button>
-                    ))}
+                            {categoryOptions.map((item) => (
+                                <option key={item.slug} value={item.slug}>
+                                    {item.label}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <label className="shop-sort-select">
+                        <span className="shop-toolbar-label">Sort by price</span>
+                        <select
+                            value={priceSort}
+                            onChange={(event) => setPriceSort(event.target.value as PriceSort)}
+                            aria-label="Sort by price"
+                        >
+                            <option value="default">Default</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                        </select>
+                    </label>
                 </div>
 
                 {loading && <p className="shop-status">Loading products...</p>}

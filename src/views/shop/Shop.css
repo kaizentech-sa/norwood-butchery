@@ -56,42 +56,74 @@
     background: linear-gradient(to left, transparent, var(--gold-dark));
 }
 
-/* Category filter tabs */
-.sm-cat-wrapper {
+/* Search + category toolbar */
+.shop-toolbar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    max-width: 1200px;
+    margin: 0 auto 2.5rem;
+    padding: 0 0.25em;
+}
+
+.shop-search,
+.shop-category-select,
+.shop-sort-select {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.6em 1.2em;
-    margin-bottom: 3em;
-    padding: 0 0.5em;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
-.sm-cat {
-    border: 1px solid var(--gold-dark);
-    background-color: transparent;
-    color: var(--white-25);
+.shop-toolbar-label {
+    color: var(--gold-75);
     font-family: var(--displayFont);
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
+    font-size: 0.62rem;
     font-weight: 600;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 8px 16px;
-    border-radius: 1px;
-    transition: all 0.3s ease-out;
-    min-height: 36px;
 }
 
-.sm-cat:hover {
-    color: var(--gold-100);
-    border-color: var(--gold-100);
-    background-color: rgba(201,168,76,0.08);
+.shop-toolbar input,
+.shop-toolbar select {
+    width: 100%;
+    border: 1px solid var(--black-25);
+    background-color: var(--black-50);
+    color: var(--cream-100);
+    font-family: var(--mainFont);
+    font-size: 0.88rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 2px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.sm-cat.active {
-    background-color: var(--gold-100);
-    color: var(--black-100);
+.shop-toolbar input::placeholder {
+    color: var(--white-25);
+}
+
+.shop-toolbar input:focus,
+.shop-toolbar select:focus {
+    outline: none;
     border-color: var(--gold-100);
+    box-shadow: 0 0 0 1px rgba(201, 168, 76, 0.25);
+}
+
+.shop-toolbar select {
+    cursor: pointer;
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--gold-100) 50%),
+        linear-gradient(135deg, var(--gold-100) 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% + 2px),
+        calc(100% - 12px) calc(50% + 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 2.2rem;
+}
+
+.shop-toolbar select option {
+    background-color: var(--black-75);
+    color: var(--cream-100);
 }
 
 /* Shop legend */
@@ -112,9 +144,6 @@
         letter-spacing: 3px;
     }
 
-    .sm-cat-wrapper {
-        gap: 0.8em 1.8em;
-    }
 }
 
 @media (min-width: 768px) {
@@ -124,6 +153,12 @@
 
     .sm-header h1 {
         font-size: 1.3rem;
+    }
+
+    .shop-toolbar {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 1rem;
+        padding: 0;
     }
 }
 
