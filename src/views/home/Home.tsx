@@ -4,7 +4,6 @@ import norwoodLogo from 'assets/img/logo/norwood-logo.png';
 // Router
 import { Link, useLocation } from 'react-router-dom';
 // Icons
-import { ReactComponent as AwardIcon } from 'assets/icons/award.svg';
 import { ReactComponent as AddCartIcon } from 'assets/icons/add-cart.svg';
 // Images
 import artisanCheeseImg from 'assets/img/others/provolone.webp';
@@ -12,7 +11,7 @@ import boereworsImg from 'assets/img/others/sausages.webp';
 import breadsImg from 'assets/img/others/breads.webp';
 import aboutUsImg from 'assets/img/others/aside.webp';
 // Components
-import { ItemListContainer } from 'components/common/itemListContainer/ItemListContainer';
+import { BestsellersSection } from './components/BestsellersSection';
 // Utils
 import { isIOS } from 'utils/isIOS';
 // Styles
@@ -99,19 +98,7 @@ export const Home = () => {
                     </div>
                 </section>
 
-                {/* Bestsellers Section */}
-                <section className="bestsellers-section">
-
-                    <div className="bs-title">
-                        <AwardIcon className="award-icon" />
-                        <h2>Our Bestsellers</h2>
-                    </div>
-
-                    <ItemListContainer category={'bestsellers'} limit={true} />
-
-                    <Link className="button bs-btn" to='/shop/all'>View All Products</Link>
-
-                </section>
+                <BestsellersSection />
 
                 {/* Feature Strip */}
                 <div className="feature-strip">

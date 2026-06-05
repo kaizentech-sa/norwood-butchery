@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { EcommerceProductCard } from 'components/common/ecommerceProductCard/EcommerceProductCard';
 import { useShop } from 'shop/core/ShopProvider';
-import { formatPrice } from 'shop/utils/helpers';
 import type { Product } from 'shop/core/ports';
 import './Shop.css';
 
@@ -155,73 +155,13 @@ export const Shop = () => {
                 )}
 
                 <div className="ecommerce-product-grid">
-                    {productList.map((product) => {
-                        const imageUrl = product.images?.[0];
-                        const isOnSale =
-                            product.onSale &&
-                            product.salePrice !== undefined &&
-                            product.salePrice < product.regularPrice;
-                        const isOutOfStock = product.stockStatus === 'outofstock';
-                        const hasVariations =
-                            product.type === 'variable' ||
-                            product.hasVariations ||
-                            (product.variations && product.variations.length > 0);
-
-                        return (
-                            <article key={product.id} className="ecommerce-product-card">
-                                <Link to={`/product/${product.id}`} className="ecommerce-product-link">
-                                    <div className="ecommerce-product-image-wrap">
-                                        {isOnSale && <span className="ecommerce-product-badge">Sale</span>}
-                                        <div className="ecommerce-product-image-frame">
-                                            {imageUrl ? (
-                                                <img
-                                                    src={imageUrl}
-                                                    alt={product.name}
-                                                    className="ecommerce-product-image"
-                                                />
-                                            ) : (
-                                                <div className="ecommerce-product-image-placeholder">No image</div>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="ecommerce-product-body">
-                                        {product.categories?.[0] && (
-                                            <span className="ecommerce-product-category">
-                                                {product.categories[0]}
-                                            </span>
-                                        )}
-                                        <h2 className="ecommerce-product-title">{product.name}</h2>
-                                        <div className="ecommerce-product-price">
-                                            {isOnSale && (
-                                                <span className="ecommerce-product-price-old">
-                                                    {formatPrice(product.regularPrice)}
-                                                </span>
-                                            )}
-                                            <span className="ecommerce-product-price-current">
-                                                {isOnSale
-                                                    ? formatPrice(product.salePrice)
-                                                    : formatPrice(product.price)}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </Link>
-
-                                <button
-                                    type="button"
-                                    className="ecommerce-product-btn"
-                                    disabled={isOutOfStock}
-                                    onClick={() => handleAddToCart(product)}
-                                >
-                                    {isOutOfStock
-                                        ? 'Out of stock'
-                                        : hasVariations
-                                          ? 'Select options'
-                                          : 'Add to cart'}
-                                </button>
-                            </article>
-                        );
-                    })}
+                    {productList.map((product) => (
+                        <EcommerceProductCard
+                            key={product.id}
+                            product={product}
+                            onAddToCart={handleAddToCart}
+                        />
+                    ))}
                 </div>
             </section>
 

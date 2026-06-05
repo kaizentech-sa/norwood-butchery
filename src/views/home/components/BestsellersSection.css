@@ -1,0 +1,21 @@
+.bs-status {
+    text-align: center;
+    color: var(--cream-75);
+    font-size: 0.85rem;
+    margin: 0 auto 1.5rem;
+    max-width: 1200px;
+}
+
+.bs-status-error {
+    color: #f2a3a3;
+}
+
+.bs-product-grid {
+    margin-top: 0;
+}
+
+@media (min-width: 900px) {
+    .bs-product-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
