@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 // Router
 import { Link } from 'react-router-dom';
 // Toasts
@@ -7,19 +7,16 @@ import { logoutToast } from 'utils/toasts';
 import norwoodLogo from 'assets/img/logo/norwood-logo.png';
 // Icons
 import { ReactComponent as HamburguerIcon } from 'assets/icons/hamburguer-menu.svg';
-import { ReactComponent as LoginIcon } from 'assets/icons/login.svg';
 import { ReactComponent as UserIcon } from 'assets/icons/user.svg';
 import { ReactComponent as DropdownItemIcon } from 'assets/icons/arrow-right-circle.svg';
 // Components
 import { HamburguerMenuCanvas } from './components/HamburguerMenuCanvas/HamburguerMenuCanvas';
-import { LoginModal } from './components/loginModal/LoginModal';
 import { CartWidget } from './components/cartWidget/CartWidget';
 import { UserInfo } from './components/userInfo/UserInfo';
 // Auth
 import { useAuth } from 'hooks/useAuth';
 // Styles
 import './NavBar.css';
-import { LSModalContext } from 'contexts/LSModalContext';
 
 
 export const NavBar = () => {
@@ -31,8 +28,6 @@ export const NavBar = () => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const openDropdown = () => setDropdownOpen(true);
     const closeDropdown = () => setDropdownOpen(false);
-
-    const { openModal } = useContext(LSModalContext);
 
     const [userInfoOpen, setUserInfoOpen] = useState<boolean>(false);
     const toggleUserInfo = () => setUserInfoOpen(!userInfoOpen);
@@ -49,7 +44,6 @@ export const NavBar = () => {
     return (
         <>
             <HamburguerMenuCanvas hamburguerMenuOpen={hamburguerMenuOpen} closeHamburguerMenu={closeHamburguerMenu} />
-            <LoginModal />
 
             {/* Halal announcement bar — two copies for seamless marquee loop */}
             <div className="halal-bar" aria-label="100% Halal Certified • Norwood, Johannesburg • Mon–Sat 7am–6pm">
@@ -126,7 +120,7 @@ export const NavBar = () => {
                             <HamburguerIcon className="hamburguer-icon" />
                         </button>
 
-                        { user ?
+                        { user &&
                             <div>
                                 <button className="user-btn" onClick={() => toggleUserInfo()}>
                                     <UserIcon className="user-icon" />
@@ -138,14 +132,6 @@ export const NavBar = () => {
                                     closeUserInfo={closeUserInfo}
                                 />
                             </div>
-                            :
-                            <button
-                                className="navbar-link login-btn"
-                                onClick={() => openModal()}
-                                aria-label="Login"
-                            >
-                                <LoginIcon className="login-icon" />
-                            </button>
                         }
 
                         {/* Cart Button */}
