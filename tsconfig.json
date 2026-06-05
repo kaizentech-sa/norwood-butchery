@@ -19,9 +19,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "shop/*": ["../shop/*"],
+      "services/*": ["../services/*"],
+      "shipping/*": ["../shipping/*"]
+    }
   },
   "include": [
-    "src"
-  ],
+    "src",
+    "shop",
+    "services",
+    "shipping"
+  ]
 }

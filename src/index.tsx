@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from 'contexts/AuthContext';
 import { CartContextProvider } from 'contexts/CartContext';
 import { LSModalContextProvider } from 'contexts/LSModalContext';
+import { ShopProvider } from 'shop/core/ShopProvider';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -18,9 +19,11 @@ root.render(
         <BrowserRouter>
             <AuthContextProvider>
                 <CartContextProvider>
-                    <LSModalContextProvider>
-                        <App />
-                    </LSModalContextProvider>
+                    <ShopProvider>
+                        <LSModalContextProvider>
+                            <App />
+                        </LSModalContextProvider>
+                    </ShopProvider>
                 </CartContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

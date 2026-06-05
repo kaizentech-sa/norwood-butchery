@@ -1,100 +1,147 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-// Components
-import { ItemListContainer } from 'components/common/itemListContainer/ItemListContainer';
-// Css
+import { useEffect, useMemo } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useShop } from 'shop/core/ShopProvider';
+import { formatPrice } from 'shop/utils/helpers';
+import type { Product } from 'shop/core/ports';
 import './Shop.css';
 
-
 export const Shop = () => {
-
-    /* Obtain the category parameter from the
-    url with useParams() hook. */
     const { category } = useParams();
-
-    /* Hook to navigate to another path. */
     const navigate = useNavigate();
+    const { products, categories, cart } = useShop();
+    const { fetchCategories } = categories;
+    const { fetchProducts, products: productList, loading, error } = products;
 
-    /* Function that navigates to a category path in
-    order to load his products. */
-    const handleClickCategory = (category: string) => {
-        navigate(`/shop/${category}`);
-    }
+    const activeCategory = category || 'all';
 
-    /* If the url param category isn't recognized => navigate to
-    /shop/all. */
+    const categoryId = useMemo(() => {
+        if (activeCategory === 'all') return undefined;
+        const match = categories.categories.find(
+            (item) => item.slug === activeCategory || String(item.id) === activeCategory
+        );
+        return match?.id;
+    }, [activeCategory, categories.categories]);
+
     useEffect(() => {
-        (category !== 'all' && category !== 'wagyu' && category !== 'feedlot' && category !== 'standard' && category !== 'other') && navigate('/shop/all');
-    }, [category, navigate])
+        fetchCategories({ hideEmpty: true });
+    }, [fetchCategories]);
 
-    /* Scroll to top when the component
-    is rendered for the first time. */
+    useEffect(() => {
+        fetchProducts({
+            categoryId,
+            perPage: 12,
+            page: 1,
+        });
+    }, [categoryId, fetchProducts]);
+
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
+    }, []);
+
+    const handleClickCategory = (slug: string) => {
+        navigate(`/shop/${slug}`);
+    };
+
+    const handleAddToCart = (product: Product) => {
+        const hasVariations =
+            product.type === 'variable' ||
+            product.hasVariations ||
+            (product.variations && product.variations.length > 0);
+
+        if (hasVariations) {
+            navigate(`/product/${product.id}`);
+            return;
+        }
+
+        cart.addItem(product);
+    };
+
+    const categoryButtons = [
+        { slug: 'all', label: 'All Products' },
+        ...categories.categories.map((item) => ({
+            slug: item.slug || String(item.id),
+            label: item.name,
+        })),
+    ];
 
     return (
         <div className="shop">
-            
-            {/* Shop Banner */}
             <div className="shop-banner"></div>
 
-            {/* Meat Shop */}
             <section className="shop-main">
-
                 <div className="sm-header">
                     <div className="smh-line"></div>
-                    <h1>Meat Shop</h1>
+                    <h1>Shop</h1>
                     <div className="smh-line"></div>
                 </div>
 
-                {/* Categories Wrapper */}
                 <div className="sm-cat-wrapper">
-                    <button 
-                        onClick={() => handleClickCategory('all')}
-                        style={category === 'all' ? {color: 'var(--white-50)'} : {}} 
-                        className="sm-cat"
-                    >
-                        All Meats
-                    </button>
-                    <button 
-                        onClick={() => handleClickCategory('wagyu')}
-                        style={category === 'wagyu' ? {color: 'var(--white-50)'} : {}} 
-                        className="sm-cat"
-                    >
-                        Wagyu Meats
-                    </button>
-                    <button 
-                        onClick={() => handleClickCategory('feedlot')}
-                        style={category === 'feedlot' ? {color: 'var(--white-50)'} : {}} 
-                        className="sm-cat"
-                    >
-                        Feedlot Meats
-                    </button>
-                    <button 
-                        onClick={() => handleClickCategory('standard')}
-                        style={category === 'standard' ? {color: 'var(--white-50)'} : {}} 
-                        className="sm-cat"
-                    >
-                        Standard Meats
-                    </button>
-                    <button 
-                        onClick={() => handleClickCategory('other')}
-                        style={category === 'other' ? {color: 'var(--white-50)'} : {}} 
-                        className="sm-cat"
-                    >
-                        Other Products
-                    </button>
+                    {categoryButtons.map((item) => (
+                        <button
+                            key={item.slug}
+                            onClick={() => handleClickCategory(item.slug)}
+                            style={activeCategory === item.slug ? { color: 'var(--white-50)' } : {}}
+                            className="sm-cat"
+                        >
+                            {item.label}
+                        </button>
+                    ))}
                 </div>
 
-                {/* Shop Catalog */}
-                <ItemListContainer category={category as string} limit={false} />
+                {loading && <p>Loading products...</p>}
 
+                {error && (
+                    <p role="alert">Failed to load products: {error}</p>
+                )}
+
+                {!loading && !error && productList.length === 0 && (
+                    <p>No products found.</p>
+                )}
+
+                <div className="ecommerce-product-grid">
+                    {productList.map((product) => {
+                        const imageUrl = product.images?.[0];
+                        const isOnSale =
+                            product.onSale &&
+                            product.salePrice !== undefined &&
+                            product.salePrice < product.regularPrice;
+                        const isOutOfStock = product.stockStatus === 'outofstock';
+
+                        return (
+                            <article key={product.id} className="ecommerce-product-card">
+                                <Link to={`/product/${product.id}`} className="ecommerce-product-link">
+                                    {imageUrl ? (
+                                        <img
+                                            src={imageUrl}
+                                            alt={product.name}
+                                            className="ecommerce-product-image"
+                                        />
+                                    ) : (
+                                        <div className="ecommerce-product-image-placeholder">No image</div>
+                                    )}
+                                    <h2>{product.name}</h2>
+                                    <p>
+                                        {isOnSale
+                                            ? formatPrice(product.salePrice)
+                                            : formatPrice(product.price)}
+                                    </p>
+                                </Link>
+                                <button
+                                    type="button"
+                                    disabled={isOutOfStock}
+                                    onClick={() => handleAddToCart(product)}
+                                >
+                                    {isOutOfStock ? 'Out of stock' : 'Add to cart'}
+                                </button>
+                            </article>
+                        );
+                    })}
+                </div>
             </section>
 
-            {/* Shop Legend */}
-            <h3 className="shop-legend">“All our meat cuts are of the highest quality, ensuring that all our customers are satisfied.”</h3>
-
+            <h3 className="shop-legend">
+                “All our meat cuts are of the highest quality, ensuring that all our customers are satisfied.”
+            </h3>
         </div>
-    )
-}
+    );
+};
