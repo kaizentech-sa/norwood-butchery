@@ -80,22 +80,23 @@ export const Shop = () => {
                         <button
                             key={item.slug}
                             onClick={() => handleClickCategory(item.slug)}
-                            style={activeCategory === item.slug ? { color: 'var(--white-50)' } : {}}
-                            className="sm-cat"
+                            className={`sm-cat${activeCategory === item.slug ? ' active' : ''}`}
                         >
                             {item.label}
                         </button>
                     ))}
                 </div>
 
-                {loading && <p>Loading products...</p>}
+                {loading && <p className="shop-status">Loading products...</p>}
 
                 {error && (
-                    <p role="alert">Failed to load products: {error}</p>
+                    <p className="shop-status shop-status-error" role="alert">
+                        Failed to load products: {error}
+                    </p>
                 )}
 
                 {!loading && !error && productList.length === 0 && (
-                    <p>No products found.</p>
+                    <p className="shop-status">No products found.</p>
                 )}
 
                 <div className="ecommerce-product-grid">
@@ -106,32 +107,62 @@ export const Shop = () => {
                             product.salePrice !== undefined &&
                             product.salePrice < product.regularPrice;
                         const isOutOfStock = product.stockStatus === 'outofstock';
+                        const hasVariations =
+                            product.type === 'variable' ||
+                            product.hasVariations ||
+                            (product.variations && product.variations.length > 0);
 
                         return (
                             <article key={product.id} className="ecommerce-product-card">
                                 <Link to={`/product/${product.id}`} className="ecommerce-product-link">
-                                    {imageUrl ? (
-                                        <img
-                                            src={imageUrl}
-                                            alt={product.name}
-                                            className="ecommerce-product-image"
-                                        />
-                                    ) : (
-                                        <div className="ecommerce-product-image-placeholder">No image</div>
-                                    )}
-                                    <h2>{product.name}</h2>
-                                    <p>
-                                        {isOnSale
-                                            ? formatPrice(product.salePrice)
-                                            : formatPrice(product.price)}
-                                    </p>
+                                    <div className="ecommerce-product-image-wrap">
+                                        {isOnSale && <span className="ecommerce-product-badge">Sale</span>}
+                                        <div className="ecommerce-product-image-frame">
+                                            {imageUrl ? (
+                                                <img
+                                                    src={imageUrl}
+                                                    alt={product.name}
+                                                    className="ecommerce-product-image"
+                                                />
+                                            ) : (
+                                                <div className="ecommerce-product-image-placeholder">No image</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="ecommerce-product-body">
+                                        {product.categories?.[0] && (
+                                            <span className="ecommerce-product-category">
+                                                {product.categories[0]}
+                                            </span>
+                                        )}
+                                        <h2 className="ecommerce-product-title">{product.name}</h2>
+                                        <div className="ecommerce-product-price">
+                                            {isOnSale && (
+                                                <span className="ecommerce-product-price-old">
+                                                    {formatPrice(product.regularPrice)}
+                                                </span>
+                                            )}
+                                            <span className="ecommerce-product-price-current">
+                                                {isOnSale
+                                                    ? formatPrice(product.salePrice)
+                                                    : formatPrice(product.price)}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </Link>
+
                                 <button
                                     type="button"
+                                    className="ecommerce-product-btn"
                                     disabled={isOutOfStock}
                                     onClick={() => handleAddToCart(product)}
                                 >
-                                    {isOutOfStock ? 'Out of stock' : 'Add to cart'}
+                                    {isOutOfStock
+                                        ? 'Out of stock'
+                                        : hasVariations
+                                          ? 'Select options'
+                                          : 'Add to cart'}
                                 </button>
                             </article>
                         );
