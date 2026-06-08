@@ -7,16 +7,27 @@ import './Shop.css';
 
 type PriceSort = 'default' | 'price-asc' | 'price-desc';
 
+const PRODUCTS_PER_PAGE = 12;
+
 export const Shop = () => {
     const { category } = useParams();
     const navigate = useNavigate();
     const { products, categories, cart } = useShop();
     const { fetchCategories } = categories;
-    const { fetchProducts, products: productList, loading, error } = products;
+    const {
+        fetchProducts,
+        products: productList,
+        loading,
+        error,
+        total,
+        totalPages,
+        currentPage,
+    } = products;
 
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [priceSort, setPriceSort] = useState<PriceSort>('default');
+    const [page, setPage] = useState(1);
 
     const activeCategory = category || 'all';
 
@@ -51,14 +62,22 @@ export const Shop = () => {
     }, [searchQuery]);
 
     useEffect(() => {
+        setPage(1);
+    }, [categoryId, debouncedSearch, priceSort]);
+
+    useEffect(() => {
         fetchProducts({
             categoryId,
             search: debouncedSearch || undefined,
-            perPage: 12,
-            page: 1,
+            perPage: PRODUCTS_PER_PAGE,
+            page,
             ...sortParams,
         });
-    }, [categoryId, debouncedSearch, sortParams, fetchProducts]);
+    }, [categoryId, debouncedSearch, sortParams, page, fetchProducts]);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [page]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -89,6 +108,33 @@ export const Shop = () => {
             label: item.name,
         })),
     ];
+
+    const handlePageChange = (nextPage: number) => {
+        if (nextPage < 1 || nextPage > totalPages || nextPage === page) return;
+        setPage(nextPage);
+    };
+
+    const pageNumbers = useMemo(() => {
+        if (totalPages <= 1) return [];
+
+        const pages: number[] = [];
+        const maxVisible = 5;
+        let start = Math.max(1, page - Math.floor(maxVisible / 2));
+        let end = Math.min(totalPages, start + maxVisible - 1);
+
+        if (end - start + 1 < maxVisible) {
+            start = Math.max(1, end - maxVisible + 1);
+        }
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        return pages;
+    }, [page, totalPages]);
+
+    const rangeStart = total === 0 ? 0 : (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
+    const rangeEnd = Math.min(currentPage * PRODUCTS_PER_PAGE, total);
 
     return (
         <div className="shop">
@@ -163,6 +209,80 @@ export const Shop = () => {
                         />
                     ))}
                 </div>
+
+                {!loading && !error && totalPages > 1 && (
+                    <nav className="shop-pagination" aria-label="Product pagination">
+                        <p className="shop-pagination-summary">
+                            Showing {rangeStart}–{rangeEnd} of {total} products
+                        </p>
+
+                        <div className="shop-pagination-controls">
+                            <button
+                                type="button"
+                                className="shop-pagination-btn"
+                                onClick={() => handlePageChange(page - 1)}
+                                disabled={page <= 1}
+                                aria-label="Previous page"
+                            >
+                                Previous
+                            </button>
+
+                            <div className="shop-pagination-pages">
+                                {pageNumbers[0] > 1 && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            className="shop-pagination-page"
+                                            onClick={() => handlePageChange(1)}
+                                        >
+                                            1
+                                        </button>
+                                        {pageNumbers[0] > 2 && (
+                                            <span className="shop-pagination-ellipsis">…</span>
+                                        )}
+                                    </>
+                                )}
+
+                                {pageNumbers.map((pageNumber) => (
+                                    <button
+                                        key={pageNumber}
+                                        type="button"
+                                        className={`shop-pagination-page${pageNumber === page ? ' active' : ''}`}
+                                        onClick={() => handlePageChange(pageNumber)}
+                                        aria-current={pageNumber === page ? 'page' : undefined}
+                                    >
+                                        {pageNumber}
+                                    </button>
+                                ))}
+
+                                {pageNumbers[pageNumbers.length - 1] < totalPages && (
+                                    <>
+                                        {pageNumbers[pageNumbers.length - 1] < totalPages - 1 && (
+                                            <span className="shop-pagination-ellipsis">…</span>
+                                        )}
+                                        <button
+                                            type="button"
+                                            className="shop-pagination-page"
+                                            onClick={() => handlePageChange(totalPages)}
+                                        >
+                                            {totalPages}
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+
+                            <button
+                                type="button"
+                                className="shop-pagination-btn"
+                                onClick={() => handlePageChange(page + 1)}
+                                disabled={page >= totalPages}
+                                aria-label="Next page"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </nav>
+                )}
             </section>
 
             <h3 className="shop-legend">
