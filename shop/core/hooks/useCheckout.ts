@@ -155,7 +155,7 @@ export function useCheckout(): UseCheckoutReturn {
           phone: formData.phone,
         },
         totalAmount,
-        `Buildora Hardware Order #${orderResult.orderNumber}`
+        `Norwood Butchery Order #${orderResult.orderNumber}`
       );
       
       if (!paymentResult.success) {

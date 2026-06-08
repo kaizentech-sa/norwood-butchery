@@ -1,20 +1,17 @@
-import React, { useContext } from 'react';
-// Components
+import type { CartItem } from 'shop/core/ports';
 import { CartResumeItem } from '../cartResumeItem/CartResumeItem';
-// Contexts
-import { CartContext } from 'contexts/CartContext';
-// Styles
 import './CartResume.css';
 
-export const CartResume = () => {
-    
-    const { products } = useContext(CartContext);
+type props = {
+    items: CartItem[];
+};
 
+export const CartResume = ({ items }: props) => {
     return (
         <div className="cart-resume">
-            {products.map(product => (
-                <CartResumeItem key={product.id} product={product} />
+            {items.map((item) => (
+                <CartResumeItem key={`${item.productId}-${item.variationId || 'base'}`} item={item} />
             ))}
         </div>
-    )
-}
+    );
+};

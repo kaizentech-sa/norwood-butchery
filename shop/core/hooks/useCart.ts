@@ -10,6 +10,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { storage, calculateCartTotal, calculateCartItemCount, generateCartItemKey } from '../../utils/helpers';
 import { STORAGE_KEYS, SHOP_CONFIG } from '../../utils/constants';
 import type { CartItem, Product } from '../ports';
+import { onAddToast } from '../../../src/utils/toasts';
 
 export interface UseCartReturn {
   items: CartItem[];
@@ -150,6 +151,7 @@ export function useCart(): UseCartReturn {
           stockQuantity: effectiveStockQuantity, // Update stock quantity
         };
         storage.set(STORAGE_KEYS.CART, newItems);
+        onAddToast(product.name, quantity);
         return newItems;
       } else {
         // Add new item
@@ -202,6 +204,7 @@ export function useCart(): UseCartReturn {
         };
         const newItems = [...currentItems, newItem];
         storage.set(STORAGE_KEYS.CART, newItems);
+        onAddToast(product.name, quantity);
         return newItems;
       }
     });

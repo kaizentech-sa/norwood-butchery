@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ItemCount } from '../itemCount/ItemCount';
 import { useShop } from 'shop/core/ShopProvider';
 import { formatPrice, stripHtml } from 'shop/utils/helpers';
+import { noStockToast } from 'utils/toasts';
 import { SHOP_CONFIG } from 'shop/utils/constants';
 import type { Product, ProductVariation } from 'shop/core/ports';
 import './ProductDetail.css';
@@ -129,6 +130,8 @@ export const ProductDetail = ({ product }: props) => {
 
         if (added) {
             setAddedToCart({ isAdded: true, amount });
+        } else {
+            noStockToast(product.name);
         }
     };
 

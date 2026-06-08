@@ -155,3 +155,58 @@
     padding: 14px;
     letter-spacing: 2px;
 }
+
+.finish-order-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.billing-errors {
+    max-width: 1400px;
+    margin: 0 auto 1.5rem;
+    padding: 1rem 1.25rem;
+    background: rgba(180, 60, 60, 0.15);
+    border: 1px solid rgba(220, 100, 100, 0.4);
+    color: #f2a3a3;
+    font-size: 0.85rem;
+}
+
+.billing-errors p {
+    margin: 0 0 0.35rem;
+}
+
+.billing-payment-note {
+    font-size: 0.8rem;
+    color: var(--white-25);
+    margin: 0 0 1.25rem;
+    line-height: 1.5;
+}
+
+.billing-back-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--gold-100);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bi-fields textarea {
+    border: none;
+    padding: 12px;
+    background-color: var(--black-25);
+    border-radius: 1px;
+    border-bottom: 2px solid #444;
+    color: var(--white-100);
+    font-family: var(--mainFont);
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.bi-fields textarea:focus {
+    outline: none;
+    border-color: var(--gold-100);
+}
+

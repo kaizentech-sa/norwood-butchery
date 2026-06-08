@@ -1,36 +1,30 @@
-// Styles
+import { formatPrice } from 'shop/utils/helpers';
 import './BillingProductCard.css';
 
 type props = {
     name: string;
     price: number;
-    img: string;
-    category: string;
-    cartAmount: number;
-}
+    image: string;
+    quantity: number;
+};
 
-// This component recibes the product name, price, img and cartAmount and shows it in a card.
-export const BillingProductCard = ({ name, price, img, category, cartAmount }: props) => {
+export const BillingProductCard = ({ name, price, image, quantity }: props) => {
     return (
         <div className="billing-product-card">
-            
-            {/* Image and info section */}
             <div className="bpc-data">
-                <img src={`assets/products/${category}/${img}`} alt={name} />
+                <img src={image} alt={name} />
                 <div className="bpc-data-info">
                     <div>
-                        <span className="bdi-name"> {name} </span>
-                        <span className="bdi-price"> R {price.toFixed(2)} </span>
+                        <span className="bdi-name">{name}</span>
+                        <span className="bdi-price">{formatPrice(price)}</span>
                     </div>
-                    <span className="bdi-amount"> Amount: {cartAmount} </span>
+                    <span className="bdi-amount">Qty: {quantity}</span>
                 </div>
             </div>
 
-            {/* Product total cost */}
             <div className="bpc-total">
-                <span> R {(cartAmount * price).toFixed(2)} </span>
+                <span>{formatPrice(price * quantity)}</span>
             </div>
-
         </div>
-    )
-}
+    );
+};

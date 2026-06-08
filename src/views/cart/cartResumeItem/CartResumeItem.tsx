@@ -1,64 +1,90 @@
-import React, { useContext } from 'react';
-// Import icons
 import { ReactComponent as PlusIcon } from 'assets/icons/plus.svg';
 import { ReactComponent as MinusIcon } from 'assets/icons/minus.svg';
 import { ReactComponent as DeleteIcon } from 'assets/icons/x.svg';
-// Interfaces
-import { Product } from 'interfaces/product';
-// Contexts
-import { CartContext } from 'contexts/CartContext';
-// Styles
+import { useShop } from 'shop/core/ShopProvider';
+import { formatPrice } from 'shop/utils/helpers';
+import { SHOP_CONFIG } from 'shop/utils/constants';
+import type { CartItem } from 'shop/core/ports';
 import './CartResumeItem.css';
 
 type props = {
-    product: Product;
-}
+    item: CartItem;
+};
 
-export const CartResumeItem = ({ product }: props) => {
+export const CartResumeItem = ({ item }: props) => {
+    const { cart } = useShop();
 
-    const { id, name, price, img, category, cartAmount, stock } = product;
+    const lineTotal = item.price * item.quantity;
+    const maxStock =
+        item.stockStatus === 'outofstock'
+            ? 0
+            : item.stockQuantity !== undefined && item.stockQuantity > 0
+              ? item.stockQuantity
+              : SHOP_CONFIG.MAX_QUANTITY_PER_ITEM;
 
-    const { removeProduct, increaseProduct, decreaseProduct } = useContext(CartContext);
+    const remainingStock = Math.max(0, maxStock - item.quantity);
 
-    const handleIncrease = () => stock - cartAmount > 0 && increaseProduct(id);
+    const displayName =
+        item.variation && Object.keys(item.variation).length > 0
+            ? `${item.name} (${Object.values(item.variation).join(', ')})`
+            : item.name;
 
-    const handleDecrease = () => cartAmount > 1 && decreaseProduct(id);
+    const handleIncrease = () => {
+        if (item.quantity < maxStock) {
+            cart.updateQuantity(item.productId, item.quantity + 1, item.variationId);
+        }
+    };
+
+    const handleDecrease = () => {
+        if (item.quantity > 1) {
+            cart.updateQuantity(item.productId, item.quantity - 1, item.variationId);
+        }
+    };
 
     return (
         <div className="cart-resume-item">
             <div className="cri-img-np">
                 <div className="cri-img">
-                    <img src={`/assets/products/${category}/${img}`} alt={name} />
+                    <img src={item.image} alt={item.name} />
                 </div>
 
                 <div className="cri-name-price">
-                    <h4> {name} </h4>
-                    <span> R {price.toFixed(2)} </span>
+                    <h4>{displayName}</h4>
+                    <span>{formatPrice(item.price)}</span>
                 </div>
             </div>
-            
+
             <div className="cri-controls-tp">
                 <div className="cri-controls">
                     <div className="icc-buttons">
-                        <button onClick={() => handleDecrease()}> <MinusIcon className="mp-icon" /> </button>
-                        <span className="cric-item-amount"> {cartAmount} </span>
-                        <button onClick={() => handleIncrease()}> <PlusIcon className="mp-icon" /> </button>
+                        <button type="button" onClick={handleDecrease} disabled={item.quantity <= 1}>
+                            <MinusIcon className="mp-icon" />
+                        </button>
+                        <span className="cric-item-amount">{item.quantity}</span>
+                        <button
+                            type="button"
+                            onClick={handleIncrease}
+                            disabled={item.quantity >= maxStock}
+                        >
+                            <PlusIcon className="mp-icon" />
+                        </button>
                     </div>
                     <span className="crib-stock">
-                        {stock - cartAmount > 0 ?
-                            `Stock: ${stock - cartAmount}`
-                        :
-                            `No Stock`
-                        }
+                        {remainingStock > 0 ? `Stock: ${remainingStock}` : 'No stock'}
                     </span>
                 </div>
 
-                <span className="cri-total-price"> R {(cartAmount * price).toFixed(2)} </span>
+                <span className="cri-total-price">{formatPrice(lineTotal)}</span>
             </div>
-            
-            <button onClick={() => removeProduct(id)} className="cri-delete">
+
+            <button
+                type="button"
+                onClick={() => cart.removeItem(item.productId, item.variationId)}
+                className="cri-delete"
+                aria-label={`Remove ${item.name}`}
+            >
                 <DeleteIcon className="close-icon" />
             </button>
         </div>
-    )
-}
+    );
+};

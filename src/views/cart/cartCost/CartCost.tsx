@@ -1,10 +1,29 @@
-import React, { useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from 'contexts/CartContext';
+import { formatPrice } from 'shop/utils/helpers';
+import { SHIPPING_CONFIG } from 'shop/utils/constants';
+import {
+    getSavedShippingType,
+    getShippingPrice,
+    saveShippingType,
+    type ShippingType,
+} from 'utils/cartShipping';
 import './CartCost.css';
 
-export const CartCost = () => {
-    const { expressShipping, setExpressShipping, getSubtotal, getTotal } = useContext(CartContext);
+type props = {
+    subtotal: number;
+};
+
+export const CartCost = ({ subtotal }: props) => {
+    const [shippingType, setShippingType] = useState<ShippingType>(getSavedShippingType);
+
+    useEffect(() => {
+        saveShippingType(shippingType);
+    }, [shippingType]);
+
+    const shippingPrice = getShippingPrice(subtotal, shippingType);
+    const total = subtotal + shippingPrice;
+    const freeShipping = subtotal >= SHIPPING_CONFIG.FREE_SHIPPING_THRESHOLD;
 
     return (
         <section className="cart-cost">
@@ -13,7 +32,7 @@ export const CartCost = () => {
             <div className="cc-summary">
                 <div className="ccs-item">
                     <span>Subtotal</span>
-                    <span>R {getSubtotal().toFixed(2)}</span>
+                    <span>{formatPrice(subtotal)}</span>
                 </div>
 
                 <div className="ccs-item ccs-shipping">
@@ -23,32 +42,48 @@ export const CartCost = () => {
                             <input
                                 type="radio"
                                 name="shipping_option"
-                                checked={!expressShipping}
-                                onChange={() => setExpressShipping(false)}
+                                checked={shippingType === 'standard'}
+                                onChange={() => setShippingType('standard')}
                             />
-                            <span className="ccss-label">Standard (2–4 days)</span>
-                            <span className="ccss-price">R 80.00</span>
+                            <span className="ccss-label">
+                                {SHIPPING_CONFIG.DEFAULT_RATES.standard.name} (
+                                {SHIPPING_CONFIG.DEFAULT_RATES.standard.deliveryTime})
+                            </span>
+                            <span className="ccss-price">
+                                {freeShipping ? 'Free' : formatPrice(SHIPPING_CONFIG.DEFAULT_RATES.standard.price)}
+                            </span>
                         </label>
                         <label className="ccsso-item">
                             <input
                                 type="radio"
                                 name="shipping_option"
-                                checked={expressShipping}
-                                onChange={() => setExpressShipping(true)}
+                                checked={shippingType === 'express'}
+                                onChange={() => setShippingType('express')}
                             />
-                            <span className="ccss-label">Express (Next day)</span>
-                            <span className="ccss-price">R 150.00</span>
+                            <span className="ccss-label">
+                                {SHIPPING_CONFIG.DEFAULT_RATES.express.name} (
+                                {SHIPPING_CONFIG.DEFAULT_RATES.express.deliveryTime})
+                            </span>
+                            <span className="ccss-price">
+                                {freeShipping ? 'Free' : formatPrice(SHIPPING_CONFIG.DEFAULT_RATES.express.price)}
+                            </span>
                         </label>
                     </div>
                 </div>
 
+                {freeShipping && (
+                    <p className="cc-free-shipping">
+                        Free delivery on orders over {formatPrice(SHIPPING_CONFIG.FREE_SHIPPING_THRESHOLD)}
+                    </p>
+                )}
+
                 <div className="ccs-item ccs-total">
-                    <span>Total <small>(incl. 15% VAT)</small></span>
-                    <span>R {getTotal().toFixed(2)}</span>
+                    <span>Total</span>
+                    <span>{formatPrice(total)}</span>
                 </div>
             </div>
 
-            <Link to='/billing' className="button cc-finish-buying-btn">
+            <Link to="/billing" className="button cc-finish-buying-btn">
                 Proceed to Checkout
             </Link>
         </section>

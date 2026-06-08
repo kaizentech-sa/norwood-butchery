@@ -19,10 +19,12 @@
 }
 
 .bpc-data img {
-    object-fit: cover;
+    object-fit: contain;
     width: 100px;
     height: 70px;
     max-width: 180px;
+    background: #ffffff;
+    padding: 0.25rem;
 }
 
 .bpc-data-info {
