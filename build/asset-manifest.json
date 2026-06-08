@@ -1,22 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.3d387604.css",
-    "main.js": "/static/js/main.c8270c64.js",
+    "main.css": "/static/css/main.e3f73b96.css",
+    "main.js": "/static/js/main.0570025f.js",
     "static/js/787.ed57d779.chunk.js": "/static/js/787.ed57d779.chunk.js",
     "static/media/banner.webp": "/static/media/banner.da72b584c06ecdeb946b.webp",
     "static/media/norwood-logo.png": "/static/media/norwood-logo.047278ba597125defcbf.png",
-    "static/media/sausages.webp": "/static/media/sausages.9eab5131ef57f34073f4.webp",
-    "static/media/breads.webp": "/static/media/breads.e0cc087cc08d6f4cdc32.webp",
     "static/media/shop-banner.webp": "/static/media/shop-banner.d16dbe3711782f4942c6.webp",
     "static/media/aside.webp": "/static/media/aside.6d5e8a3ec73b2dc8cb0e.webp",
-    "static/media/provolone.webp": "/static/media/provolone.bb6724f4e95d81dae719.webp",
     "static/media/error.svg": "/static/media/error.bd2c9ba37ffbf6276e5899fd648d6d06.svg",
     "index.html": "/index.html",
     "static/media/award.svg": "/static/media/award.87deaeed84ded74a2b697f9cfb5edf08.svg",
     "static/media/logout.svg": "/static/media/logout.938c672e180782cddae0384b22bc363d.svg",
     "static/media/order-received.svg": "/static/media/order-received.e4e20de7d4e05e51e2c51de844ab388a.svg",
     "static/media/address.svg": "/static/media/address.490b6b079fab3e5c2cc81f054cca6d9f.svg",
-    "static/media/add-cart.svg": "/static/media/add-cart.f22f8f7a13021ca938370c109b9111ca.svg",
     "static/media/postal.svg": "/static/media/postal.e2aa3772da3eb62a7272d2a3f7e6f70d.svg",
     "static/media/country.svg": "/static/media/country.63435028907152337eccb8948438174e.svg",
     "static/media/city.svg": "/static/media/city.fd8ee5cbd174cc52d3db643813e80232.svg",
@@ -32,12 +28,12 @@
     "static/media/arrow-left.svg": "/static/media/arrow-left.fab67a7faddfd41752f3aac52d15b349.svg",
     "static/media/plus.svg": "/static/media/plus.52fc5cc6260a5547a4f8dce89ab59ee8.svg",
     "static/media/minus.svg": "/static/media/minus.2ebd9322047a238f9eda5d288b21d3cf.svg",
-    "main.3d387604.css.map": "/static/css/main.3d387604.css.map",
-    "main.c8270c64.js.map": "/static/js/main.c8270c64.js.map",
+    "main.e3f73b96.css.map": "/static/css/main.e3f73b96.css.map",
+    "main.0570025f.js.map": "/static/js/main.0570025f.js.map",
     "787.ed57d779.chunk.js.map": "/static/js/787.ed57d779.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3d387604.css",
-    "static/js/main.c8270c64.js"
+    "static/css/main.e3f73b96.css",
+    "static/js/main.0570025f.js"
   ]
 }
