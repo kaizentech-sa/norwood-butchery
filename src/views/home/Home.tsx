@@ -3,15 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 import norwoodLogo from 'assets/img/logo/norwood-logo.png';
 // Router
 import { Link, useLocation } from 'react-router-dom';
-// Icons
-import { ReactComponent as AddCartIcon } from 'assets/icons/add-cart.svg';
 // Images
-import artisanCheeseImg from 'assets/img/others/provolone.webp';
-import boereworsImg from 'assets/img/others/sausages.webp';
-import breadsImg from 'assets/img/others/breads.webp';
 import aboutUsImg from 'assets/img/others/aside.webp';
 // Components
 import { BestsellersSection } from './components/BestsellersSection';
+import { CategoryProductsSection } from './components/CategoryProductsSection';
 // Utils
 import { isIOS } from 'utils/isIOS';
 // Styles
@@ -132,45 +128,26 @@ export const Home = () => {
                     </div>
                 </div>
 
-                {/* Other Products Section */}
-                <section className="other-products-section">
+                <CategoryProductsSection
+                    categorySlug="poultry"
+                    title="Poultry"
+                    limit={4}
+                    viewAllLabel="View All Poultry"
+                />
 
-                    <div className="ops-title">
-                        <AddCartIcon className="add-cart-home-icon" />
-                        <h2>Also Available</h2>
-                    </div>
+                <CategoryProductsSection
+                    categorySlug="beef"
+                    title="Beef"
+                    limit={4}
+                    viewAllLabel="View All Beef"
+                />
 
-                    <div className="ops-products">
-
-                        <div className="op-item">
-                            <img src={artisanCheeseImg} alt="Artisan Cheeses" />
-                            <div className="op-item-info">
-                                <h3>Artisan Cheeses</h3>
-                                <span>From R 85 / kg</span>
-                            </div>
-                        </div>
-
-                        <div className="op-item">
-                            <img src={boereworsImg} alt="Halal Boerewors" />
-                            <div className="op-item-info">
-                                <h3>Halal Boerewors</h3>
-                                <span>From R 65 / kg</span>
-                            </div>
-                        </div>
-
-                        <div className="op-item">
-                            <img src={breadsImg} alt="Fresh Breads & Rolls" />
-                            <div className="op-item-info">
-                                <h3>Fresh Breads & Rolls</h3>
-                                <span>From R 15 each</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <Link className="button ops-btn" to='/shop/other'>View All Products</Link>
-
-                </section>
+                <CategoryProductsSection
+                    categorySlug="braai"
+                    title="Braai"
+                    limit={4}
+                    viewAllLabel="View All Braai"
+                />
 
                 {/* About Us Section */}
                 <section ref={aboutUs} className="about-us-section">
