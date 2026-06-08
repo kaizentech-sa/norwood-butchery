@@ -7,6 +7,7 @@ import { Shop } from 'views/shop/Shop';
 import { ProductDetailContainer } from 'views/product/ProductDetailContainer';
 import { Billing } from 'views/billing/Billing';
 import { Cart } from 'views/cart/Cart';
+import { About } from 'views/about/About';
 
 export const AppRoutes = () => {
     return (
@@ -15,6 +16,7 @@ export const AppRoutes = () => {
             <Route path='/home' element={<Home />} />
             <Route path='/shop/:category' element={<Shop />} />
             <Route path='/shop' element={<Navigate to='/shop/all' />} />
+            <Route path='/about' element={<About />} />
             <Route path='/product/:productID' element={<ProductDetailContainer />} />
             {<Route path='/cart' element={<Cart />} />}
             <Route path='/billing' element={<Billing />} />

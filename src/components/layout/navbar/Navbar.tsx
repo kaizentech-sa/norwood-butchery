@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 // Router
 import { Link } from 'react-router-dom';
 // Toasts
@@ -15,6 +15,7 @@ import { CartWidget } from './components/cartWidget/CartWidget';
 import { UserInfo } from './components/userInfo/UserInfo';
 // Auth
 import { useAuth } from 'hooks/useAuth';
+import { useShop } from 'shop/core/ShopProvider';
 // Styles
 import './NavBar.css';
 
@@ -34,6 +35,21 @@ export const NavBar = () => {
     const closeUserInfo = () => setUserInfoOpen(false);
 
     const { user, logout } = useAuth();
+    const { categories } = useShop();
+    const { fetchCategories } = categories;
+
+    const categoryLinks = useMemo(
+        () =>
+            categories.categories.map((item) => ({
+                slug: item.slug || String(item.id),
+                name: item.name,
+            })),
+        [categories.categories]
+    );
+
+    useEffect(() => {
+        fetchCategories({ hideEmpty: true });
+    }, [fetchCategories]);
 
     const handleLogout = () => {
         logout();
@@ -43,7 +59,11 @@ export const NavBar = () => {
 
     return (
         <>
-            <HamburguerMenuCanvas hamburguerMenuOpen={hamburguerMenuOpen} closeHamburguerMenu={closeHamburguerMenu} />
+            <HamburguerMenuCanvas
+                hamburguerMenuOpen={hamburguerMenuOpen}
+                closeHamburguerMenu={closeHamburguerMenu}
+                categoryLinks={categoryLinks}
+            />
 
             {/* Halal announcement bar — two copies for seamless marquee loop */}
             <div className="halal-bar" aria-label="100% Halal Certified • Norwood, Johannesburg • Mon–Sat 7am–6pm">
@@ -81,35 +101,20 @@ export const NavBar = () => {
                                 style={dropdownOpen ? {opacity: '1', pointerEvents: 'all'} : {}}
                             >
                                 <ul>
-                                    <li className="cdm-item" onClick={() => closeDropdown()}>
-                                        <Link to='/shop/wagyu' className="cdm-item-link">
-                                            <DropdownItemIcon className="dd-item-icon" />
-                                            Wagyu
-                                        </Link>
-                                    </li>
-                                    <li className="cdm-item" onClick={() => closeDropdown()}>
-                                        <Link to='/shop/feedlot' className="cdm-item-link">
-                                            <DropdownItemIcon className="dd-item-icon" />
-                                            Feedlot
-                                        </Link>
-                                    </li>
-                                    <li className="cdm-item" onClick={() => closeDropdown()}>
-                                        <Link to='/shop/standard' className="cdm-item-link">
-                                            <DropdownItemIcon className="dd-item-icon" />
-                                            Standard
-                                        </Link>
-                                    </li>
-                                    <li className="cdm-item" onClick={() => closeDropdown()}>
-                                        <Link to='/shop/other' className="cdm-item-link">
-                                            <DropdownItemIcon className="dd-item-icon" />
-                                            Others
-                                        </Link>
-                                    </li>
+                                    {categoryLinks.map((item) => (
+                                        <li key={item.slug} className="cdm-item" onClick={() => closeDropdown()}>
+                                            <Link to={`/shop/${item.slug}`} className="cdm-item-link">
+                                                <DropdownItemIcon className="dd-item-icon" />
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
 
                         <Link className="navbar-link nbl-section" to='/shop/all'> Shop </Link>
+                        <Link className="navbar-link nbl-section" to='/about'> About </Link>
 
                         {/* Hamburger Menu (mobile) */}
                         <button

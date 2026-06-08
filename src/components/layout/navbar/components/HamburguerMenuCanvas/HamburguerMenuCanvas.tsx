@@ -5,9 +5,15 @@ import { ReactComponent as GoBackIcon } from 'assets/icons/arrow-left.svg';
 import norwoodLogo from 'assets/img/logo/norwood-logo.png';
 import './HamburguerMenuCanvas.css';
 
+type CategoryLink = {
+    slug: string;
+    name: string;
+};
+
 type props = {
     hamburguerMenuOpen: boolean;
     closeHamburguerMenu: () => void;
+    categoryLinks: CategoryLink[];
 }
 
 /* Lock body scroll (iOS-safe: position:fixed + stored scroll offset) */
@@ -27,7 +33,7 @@ const unlockScroll = () => {
     window.scrollTo({ top: scrollY, behavior: 'instant' as ScrollBehavior });
 };
 
-export const HamburguerMenuCanvas = ({ hamburguerMenuOpen, closeHamburguerMenu }: props) => {
+export const HamburguerMenuCanvas = ({ hamburguerMenuOpen, closeHamburguerMenu, categoryLinks }: props) => {
     const [viewCategories, setViewCategories] = useState<boolean>(false);
 
     useEffect(() => {
@@ -92,14 +98,21 @@ export const HamburguerMenuCanvas = ({ hamburguerMenuOpen, closeHamburguerMenu }
                     <Link className="navbar-link nbl-hm" to='/' onClick={handleNavClick}>Home</Link>
                     <button className="navbar-link nbl-hm nbl-hm-cat" onClick={() => setViewCategories(true)}>Categories</button>
                     <Link className="navbar-link nbl-hm" to='/shop/all' onClick={handleNavClick}>Shop</Link>
+                    <Link className="navbar-link nbl-hm" to='/about' onClick={handleNavClick}>About</Link>
                 </div>
 
                 {/* Category Links */}
                 <div className="cat-links" style={viewCategories ? { transform: 'translateX(0)' } : { opacity: 0 }}>
-                    <Link className="navbar-link nbl-hm" to='/shop/wagyu' onClick={handleNavClick}>Wagyu</Link>
-                    <Link className="navbar-link nbl-hm" to='/shop/feedlot' onClick={handleNavClick}>Feedlot</Link>
-                    <Link className="navbar-link nbl-hm" to='/shop/standard' onClick={handleNavClick}>Standard</Link>
-                    <Link className="navbar-link nbl-hm" to='/shop/other' onClick={handleNavClick}>Others</Link>
+                    {categoryLinks.map((item) => (
+                        <Link
+                            key={item.slug}
+                            className="navbar-link nbl-hm"
+                            to={`/shop/${item.slug}`}
+                            onClick={handleNavClick}
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
                 </div>
 
                 {/* Halal badge */}
