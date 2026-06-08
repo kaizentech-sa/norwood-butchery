@@ -1,101 +1,96 @@
-.cart-cost {
-    margin-top: 3em;
-    width: 100%;
-    max-width: 780px;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+.cart-order-summary {
+    border: 1px solid var(--gold-dark);
+    padding: 1.5rem 1.35rem;
+    background: var(--black-50);
 }
 
-.cc-title {
-    text-transform: uppercase;
-    color: var(--gold-100);
+.cos-title {
+    margin: 0 0 1.25rem;
     font-family: var(--displayFont);
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-100);
 }
 
-.cc-summary {
+.cos-rows {
     display: flex;
     flex-direction: column;
+    gap: 0.85rem;
 }
 
-.ccs-item {
+.cos-row {
     display: flex;
     justify-content: space-between;
-    padding: 1.6em 1em;
-    color: var(--white-50);
-    font-size: 0.95rem;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 0.88rem;
+    color: var(--cream-75);
 }
 
-.ccs-item:nth-of-type(odd) {
-    background-color: var(--black-25);
+.cos-shipping-note {
+    color: var(--white-25);
+    font-size: 0.8rem;
+    text-align: right;
 }
 
-.ccs-item:nth-of-type(even) {
-    background-color: var(--black-50);
+.cos-divider {
+    height: 1px;
+    background: var(--black-25);
+    margin: 1.25rem 0;
 }
 
-.ccs-shipping {
-    gap: 1em;
-}
-
-.ccss-options {
+.cos-total-row {
     display: flex;
-    flex-direction: column;
-    gap: 1em;
-    font-size: 0.75rem;
-}
-
-.ccsso-item {
-    display: flex;
-    align-items: center;
-    gap: 1em;
-}
-
-.cc-free-shipping {
-    margin: 0 1em 0.5rem;
-    font-size: 0.78rem;
-    color: var(--gold-75);
-}
-
-.cc-finish-buying-btn {
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--displayFont);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cream-100);
     text-transform: uppercase;
-    padding: 14px !important;
+    letter-spacing: 1px;
 }
 
-@media (min-width: 598px) {
-    .ccs-item {
-        padding: 1.6em 1.4em;
-    }
-
-    .ccs-item {
-        font-size: 0.95rem;
-    }
-
-    .ccsso-item {
-        font-size: 0.95rem;
-    }
-
-    .ccsso-item span {
-        margin-left: 1em;
-    }
-
-    .ccsso-item:nth-of-type(2) span {
-        position: relative;
-        right: -16px;
-    }
+.cos-tax-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.72rem;
+    color: var(--white-25);
 }
 
-@media (min-width: 640px) {
-    .ccsso-item span {
-        margin-left: 3em;
-    }
+.cos-checkout-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.78rem;
+    padding: 0.95rem 1rem;
 }
 
-@media (min-width: 840px) {
-    .ccsso-item span {
-        margin-left: 10em;
-    }
+.cos-secure-note {
+    margin: 1rem 0 0.65rem;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--white-25);
+}
+
+.cos-payment-badges {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.cos-payment-badges span {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--white-25);
+    border: 1px solid var(--black-25);
+    background: var(--black-25);
+    padding: 0.3rem 0.5rem;
 }

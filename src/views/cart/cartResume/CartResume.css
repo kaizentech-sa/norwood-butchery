@@ -1,12 +1,99 @@
-.cart-resume {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+.cart-table {
+    width: 100%;
 }
 
-@media (min-width: 598px) {
-    .cart-resume {
-        gap: 0;
+.cart-table-header,
+.cart-table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.cart-table-header {
+    padding: 0 0 0.85rem;
+    border-bottom: 1px solid var(--black-25);
+    margin-bottom: 0.25rem;
+}
+
+.cart-table-header span {
+    font-family: var(--displayFont);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--white-25);
+}
+
+.cart-table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-table-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--black-25);
+}
+
+.cart-continue-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.25rem;
+}
+
+.cart-continue-icon {
+    width: 16px;
+}
+
+.cart-clear-btn {
+    border: 1px solid var(--gold-dark);
+    background: transparent;
+    color: var(--cream-100);
+    font-family: var(--displayFont);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.75rem 1.25rem;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.cart-clear-btn:hover {
+    border-color: var(--gold-100);
+    color: var(--gold-100);
+}
+
+@media (max-width: 768px) {
+    .cart-table-header {
+        display: none;
+    }
+
+    .cart-table-row {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 1.25rem 0;
+        border-bottom: 1px solid var(--black-25);
+    }
+
+    .cart-table-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cart-continue-btn,
+    .cart-clear-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
     }
 }

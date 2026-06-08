@@ -22,7 +22,10 @@ export const CartResumeItem = ({ item }: props) => {
               ? item.stockQuantity
               : SHOP_CONFIG.MAX_QUANTITY_PER_ITEM;
 
-    const remainingStock = Math.max(0, maxStock - item.quantity);
+    const isOnSale =
+        item.salePrice !== undefined &&
+        item.regularPrice > 0 &&
+        item.salePrice < item.regularPrice;
 
     const displayName =
         item.variation && Object.keys(item.variation).length > 0
@@ -42,49 +45,54 @@ export const CartResumeItem = ({ item }: props) => {
     };
 
     return (
-        <div className="cart-resume-item">
-            <div className="cri-img-np">
-                <div className="cri-img">
+        <div className="cart-table-row">
+            <div className="ctr-product">
+                <div className="ctr-image">
                     <img src={item.image} alt={item.name} />
                 </div>
+                <span className="ctr-name">{displayName}</span>
+            </div>
 
-                <div className="cri-name-price">
-                    <h4>{displayName}</h4>
-                    <span>{formatPrice(item.price)}</span>
+            <div className="ctr-price">
+                <span className="ctr-price-current">{formatPrice(item.price)}</span>
+                {isOnSale && (
+                    <span className="ctr-price-old">{formatPrice(item.regularPrice)}</span>
+                )}
+            </div>
+
+            <div className="ctr-quantity">
+                <div className="ctr-qty-control">
+                    <button
+                        type="button"
+                        onClick={handleDecrease}
+                        disabled={item.quantity <= 1}
+                        aria-label="Decrease quantity"
+                    >
+                        <MinusIcon className="ctr-qty-icon" />
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                        type="button"
+                        onClick={handleIncrease}
+                        disabled={item.quantity >= maxStock}
+                        aria-label="Increase quantity"
+                    >
+                        <PlusIcon className="ctr-qty-icon" />
+                    </button>
                 </div>
             </div>
 
-            <div className="cri-controls-tp">
-                <div className="cri-controls">
-                    <div className="icc-buttons">
-                        <button type="button" onClick={handleDecrease} disabled={item.quantity <= 1}>
-                            <MinusIcon className="mp-icon" />
-                        </button>
-                        <span className="cric-item-amount">{item.quantity}</span>
-                        <button
-                            type="button"
-                            onClick={handleIncrease}
-                            disabled={item.quantity >= maxStock}
-                        >
-                            <PlusIcon className="mp-icon" />
-                        </button>
-                    </div>
-                    <span className="crib-stock">
-                        {remainingStock > 0 ? `Stock: ${remainingStock}` : 'No stock'}
-                    </span>
-                </div>
-
-                <span className="cri-total-price">{formatPrice(lineTotal)}</span>
+            <div className="ctr-total">
+                <span className="ctr-line-total">{formatPrice(lineTotal)}</span>
+                <button
+                    type="button"
+                    onClick={() => cart.removeItem(item.productId, item.variationId)}
+                    className="ctr-remove"
+                    aria-label={`Remove ${item.name}`}
+                >
+                    <DeleteIcon className="ctr-remove-icon" />
+                </button>
             </div>
-
-            <button
-                type="button"
-                onClick={() => cart.removeItem(item.productId, item.variationId)}
-                className="cri-delete"
-                aria-label={`Remove ${item.name}`}
-            >
-                <DeleteIcon className="close-icon" />
-            </button>
         </div>
     );
 };

@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ErrorIcon } from 'assets/icons/error.svg';
-import { ReactComponent as GobackIcon } from 'assets/icons/go-back.svg';
-import { ViewHeader } from 'components/common/viewHeader/ViewHeader';
 import { Loader } from 'components/common/loader/Loader';
 import { useShop } from 'shop/core/ShopProvider';
+import { formatPrice } from 'shop/utils/helpers';
+import { SHIPPING_CONFIG } from 'shop/utils/constants';
 import { CartResume } from './cartResume/CartResume';
 import { CartCost } from './cartCost/CartCost';
 import './Cart.css';
 
 export const Cart = () => {
     const { cart } = useShop();
-    const { items, itemCount, initialized } = cart;
+    const { items, itemCount, initialized, total } = cart;
+
+    const freeShipping = total >= SHIPPING_CONFIG.FREE_SHIPPING_THRESHOLD;
+    const amountToFreeShipping = SHIPPING_CONFIG.FREE_SHIPPING_THRESHOLD - total;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -20,7 +23,6 @@ export const Cart = () => {
     if (!initialized) {
         return (
             <div className="cart">
-                <ViewHeader title="Cart" />
                 <div className="loader-error">
                     <Loader />
                 </div>
@@ -30,8 +32,6 @@ export const Cart = () => {
 
     return (
         <div className="cart">
-            <ViewHeader title="Cart" />
-
             {itemCount === 0 ? (
                 <div className="loader-error">
                     <div className="cart-empty">
@@ -44,15 +44,26 @@ export const Cart = () => {
                 </div>
             ) : (
                 <section className="cart-main">
-                    <Link to="/shop/all">
-                        <button type="button" className="gotoshop-btn">
-                            <GobackIcon className="goback-icon" />
-                            <span>Shop</span>
-                        </button>
-                    </Link>
+                    <header className="cart-page-header">
+                        <h1>Shopping Cart</h1>
+                        <p className="cart-item-count">
+                            {itemCount} {itemCount === 1 ? 'item' : 'items'} in your cart
+                        </p>
+                        {!freeShipping && amountToFreeShipping > 0 && (
+                            <p className="cart-free-shipping-banner">
+                                {formatPrice(amountToFreeShipping)} away from free shipping!
+                            </p>
+                        )}
+                    </header>
 
-                    <CartResume items={items} />
-                    <CartCost subtotal={cart.total} />
+                    <div className="cart-layout">
+                        <div className="cart-layout-items">
+                            <CartResume items={items} />
+                        </div>
+                        <div className="cart-layout-summary">
+                            <CartCost subtotal={total} />
+                        </div>
+                    </div>
                 </section>
             )}
         </div>

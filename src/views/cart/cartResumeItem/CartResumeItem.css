@@ -1,130 +1,160 @@
-.cart-resume-item {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2em;
-    padding: 1em;
-    position: relative;
-    transition: all 0.3s ease-out;
+.cart-table-row {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--black-25);
 }
 
-.cart-resume-item:nth-of-type(odd) {
-    background-color: var(--black-25);
-}
-
-.cart-resume-item:nth-of-type(even) {
-    background-color: var(--black-50);
-}
-
-.cri-img-np {
+.ctr-product {
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: 1rem;
+    min-width: 0;
 }
 
-.cri-img {
-    width: 90px;
-    height: 90px;
+.ctr-image {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    background: #ffffff;
+    padding: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.cri-img img {
+.ctr-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
-.cri-name-price {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2em;
-}
-
-.cri-name-price h4 {
+.ctr-name {
+    font-family: var(--displayFont);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
     color: var(--cream-100);
-    font-family: var(--displayFont);
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 1px;
+    line-height: 1.35;
 }
 
-.cri-name-price span,
-.cri-total-price {
-    white-space: nowrap;
-}
-
-.cri-name-price span {
-    color: var(--gold-100);
-    font-size: 0.82rem;
-}
-
-.cri-controls-tp {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cric-item-amount {
-    color: var(--white-50);
-}
-
-.crib-stock {
-    color: var(--white-25);
-    font-size: 0.7rem;
-}
-
-.cri-controls {
+.ctr-price {
     display: flex;
     flex-direction: column;
+    gap: 0.2rem;
+}
+
+.ctr-price-current {
+    color: var(--cream-100);
+    font-size: 0.9rem;
+}
+
+.ctr-price-old {
+    color: var(--white-25);
+    font-size: 0.78rem;
+    text-decoration: line-through;
+}
+
+.ctr-quantity {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ctr-qty-control {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5em;
+    border: 1px solid var(--black-25);
+    background: var(--black-50);
 }
 
-.cri-total-price {
-    color: var(--white-50);
-}
-
-.cri-delete {
-    position: absolute;
-    top: 2px;
-    right: 2px;
+.ctr-qty-control button {
     border: none;
-    background-color: transparent;
+    background: transparent;
+    color: var(--cream-100);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-.cri-delete .close-icon {
-    width: 34px;
-    transition: all 0.3s ease-out;
+.ctr-qty-control button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 
-.cri-delete:hover .close-icon {
-    color: #888888;
+.ctr-qty-control span {
+    min-width: 2rem;
+    text-align: center;
+    color: var(--cream-100);
+    font-size: 0.9rem;
 }
 
-@media (min-width: 598px) {
-    .cart-resume-item {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .cri-img-np {
-        flex-basis: 50%;
-    }
-
-    .cri-controls-tp {
-        flex-basis: 42%;
-    }
+.ctr-qty-icon {
+    width: 14px;
 }
 
-@media (min-width: 978px) {
-    .cri-delete {
-        position: relative;
+.ctr-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.ctr-line-total {
+    color: var(--cream-100);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.ctr-remove {
+    border: none;
+    background: transparent;
+    padding: 0.25rem;
+    color: var(--white-25);
+    transition: color 0.25s ease;
+}
+
+.ctr-remove:hover {
+    color: var(--gold-100);
+}
+
+.ctr-remove-icon {
+    width: 22px;
+    height: 22px;
+}
+
+@media (max-width: 768px) {
+    .ctr-price::before {
+        content: 'Price';
+        display: block;
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--white-25);
+        margin-bottom: 0.25rem;
     }
 
-    .cri-total-price {
-        padding-right: 4em;
+    .ctr-quantity::before {
+        content: 'Quantity';
+        display: block;
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--white-25);
+        margin-bottom: 0.35rem;
     }
 
-    .cri-controls-tp {
-        flex-basis: 45%;
+    .ctr-total {
+        justify-content: flex-start;
+    }
+
+    .ctr-total::before {
+        content: 'Total';
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--white-25);
+        margin-right: auto;
     }
 }
