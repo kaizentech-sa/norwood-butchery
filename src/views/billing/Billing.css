@@ -6,6 +6,10 @@
     padding: 0 0.5em;
 }
 
+.billing-form {
+    width: 100%;
+}
+
 .billing-main-grid {
     display: grid;
     grid-template-columns: 100%;
@@ -210,3 +214,32 @@
     border-color: var(--gold-100);
 }
 
+.billing-distance-note {
+    margin: 0;
+    padding: 0 1.2em 0.75em;
+    font-size: 0.75rem;
+    color: var(--gold-100);
+    background-color: var(--black-25);
+}
+
+.billing-delivery-error {
+    max-width: 1400px;
+    margin: 1rem auto 0;
+    font-size: 0.85rem;
+    color: var(--red-100);
+    text-align: center;
+}
+
+.billing-checkout-actions {
+    width: 100%;
+    max-width: 1400px;
+    margin: 2rem auto 0;
+}
+
+.billing-checkout-actions .billing-payment-note {
+    margin-bottom: 1rem;
+}
+
+.billing-checkout-actions .finish-order-btn {
+    margin-bottom: 0;
+}

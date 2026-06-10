@@ -137,6 +137,7 @@ export const STORAGE_KEYS = {
   SHIPPING_ADDRESS: 'sams_hardware_shipping_address',
   BILLING_ADDRESS: 'sams_hardware_billing_address',
   SELECTED_SHIPPING: 'sams_hardware_selected_shipping',
+  DELIVERY_SELECTION: 'norwood_delivery_selection',
   COOKIE_CONSENT: 'sams_hardware_cookie_consent',
 };
 

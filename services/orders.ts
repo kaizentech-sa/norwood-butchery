@@ -34,6 +34,12 @@ export interface CheckoutData {
     methodTitle: string;
     total: number;
   };
+  deliveryOption?: {
+    optionId: string;
+    cost: number;
+    lat?: number;
+    lng?: number;
+  };
   customerNote?: string;
   useSameAddress?: boolean;
   deliveryMethod?: 'collect' | 'shipping';
@@ -170,7 +176,8 @@ export async function createOrder(
       })),
       billing: checkoutData.billing,
       shipping: shippingAddress,
-      shippingMethod,
+      shippingMethod: checkoutData.deliveryOption ? undefined : shippingMethod,
+      deliveryOption: checkoutData.deliveryOption,
       customerNote,
       deliveryMethod: isCollect ? 'collect' : 'shipping',
       pickupBranch: isCollect ? checkoutData.pickupBranch : undefined,

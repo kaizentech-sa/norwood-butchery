@@ -41,6 +41,13 @@ export interface ShippingMethod {
   total: number;
 }
 
+export interface DeliveryOptionData {
+  optionId: string;
+  cost: number;
+  lat?: number;
+  lng?: number;
+}
+
 export interface UseCheckoutReturn {
   loading: boolean;
   error: string | null;
@@ -51,7 +58,8 @@ export interface UseCheckoutReturn {
   processCheckout: (
     items: CartItem[],
     formData: CheckoutFormData,
-    shippingMethod?: ShippingMethod
+    shippingMethod?: ShippingMethod,
+    deliveryOption?: DeliveryOptionData
   ) => Promise<boolean>;
   clearError: () => void;
 }
@@ -89,7 +97,8 @@ export function useCheckout(): UseCheckoutReturn {
   const processCheckout = useCallback(async (
     items: CartItem[],
     formData: CheckoutFormData,
-    shippingMethod?: ShippingMethod
+    shippingMethod?: ShippingMethod,
+    deliveryOption?: DeliveryOptionData
   ): Promise<boolean> => {
     setLoading(true);
     setError(null);
@@ -119,6 +128,7 @@ export function useCheckout(): UseCheckoutReturn {
           country: formData.shippingCountry || formData.country,
         },
         shippingMethod,
+        deliveryOption,
         customerNote: formData.customerNote,
         useSameAddress: formData.useSameAddress,
         deliveryMethod: formData.deliveryMethod,
@@ -142,7 +152,7 @@ export function useCheckout(): UseCheckoutReturn {
         return total + (price * item.quantity);
       }, 0);
       
-      const shippingCost = shippingMethod?.total || 0;
+      const shippingCost = deliveryOption?.cost ?? shippingMethod?.total ?? 0;
       const totalAmount = cartTotal + shippingCost;
       
       // Step 3: Process payment

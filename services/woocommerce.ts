@@ -208,6 +208,12 @@ export async function createOrder(orderData: {
     methodTitle: string;
     total: number;
   };
+  deliveryOption?: {
+    optionId: string;
+    cost: number;
+    lat?: number;
+    lng?: number;
+  };
   customerNote?: string;
   deliveryMethod?: 'collect' | 'shipping';
   pickupBranch?: string;
@@ -244,11 +250,19 @@ export async function createOrder(orderData: {
       postcode: orderData.shipping.postcode,
       country: orderData.shipping.country,
     } : undefined,
-    shipping_lines: orderData.shippingMethod ? [{
-      method_id: orderData.shippingMethod.methodId,
-      method_title: orderData.shippingMethod.methodTitle,
-      total: String(orderData.shippingMethod.total),
-    }] : undefined,
+    shipping_lines: orderData.deliveryOption
+      ? undefined
+      : orderData.shippingMethod
+        ? [{
+            method_id: orderData.shippingMethod.methodId,
+            method_title: orderData.shippingMethod.methodTitle,
+            total: String(orderData.shippingMethod.total),
+          }]
+        : undefined,
+    delivery_option_id: orderData.deliveryOption?.optionId,
+    delivery_cost: orderData.deliveryOption?.cost,
+    delivery_lat: orderData.deliveryOption?.lat,
+    delivery_lng: orderData.deliveryOption?.lng,
     customer_note: orderData.customerNote,
     payment_method: 'payfast',
     payment_method_title: 'PayFast',

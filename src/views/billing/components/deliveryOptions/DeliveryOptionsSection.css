@@ -1,0 +1,119 @@
+.delivery-options-section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 2.5rem auto 0;
+    padding: 1.5rem 1.35rem;
+    border: 1px solid var(--gold-dark);
+    background: var(--black-50);
+}
+
+.delivery-options-title {
+    margin: 0 0 0.75rem;
+    font-family: var(--displayFont);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-100);
+}
+
+.delivery-store-note {
+    margin: 0 0 0.85rem;
+    font-size: 0.8rem;
+    color: var(--white-25);
+}
+
+.delivery-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+}
+
+.delivery-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: var(--cream-75);
+}
+
+.delivery-option input {
+    margin-top: 0.2rem;
+    accent-color: var(--gold-100);
+}
+
+.delivery-option-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.delivery-option-name {
+    font-weight: 600;
+}
+
+.delivery-option-desc {
+    font-size: 0.75rem;
+    color: var(--white-25);
+}
+
+.delivery-calculate-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.delivery-address-hint {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--white-25);
+}
+
+.delivery-calculate-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 0.75rem 1rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.delivery-calculate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.delivery-error {
+    margin: 0.75rem 0 0;
+    font-size: 0.8rem;
+    color: var(--red-100);
+}
+
+.delivery-message {
+    margin: 0.75rem 0 0;
+    font-size: 0.8rem;
+    color: var(--gold-100);
+}
+
+.delivery-distance {
+    margin: 0.75rem 0 0;
+    font-size: 0.82rem;
+    color: var(--cream-75);
+}
+
+.delivery-distance strong {
+    color: var(--gold-100);
+}
+
+.delivery-cost-result {
+    margin: 0.5rem 0 0;
+    font-size: 0.88rem;
+    color: var(--cream-100);
+}
+
+.delivery-cost-result strong {
+    color: var(--gold-100);
+}

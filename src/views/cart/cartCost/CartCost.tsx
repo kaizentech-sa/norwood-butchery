@@ -17,7 +17,7 @@ export const CartCost = ({ subtotal }: props) => {
                     <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div className="cos-row">
-                    <span>Shipping</span>
+                    <span>Delivery</span>
                     <span className="cos-shipping-note">Calculated at checkout</span>
                 </div>
             </div>
