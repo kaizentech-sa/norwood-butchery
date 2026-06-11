@@ -65,17 +65,18 @@ export const NavBar = () => {
                 categoryLinks={categoryLinks}
             />
 
-            {/* Halal announcement bar — two copies for seamless marquee loop */}
-            <div className="halal-bar" aria-label="100% Halal Certified • Norwood, Johannesburg • Mon–Sat 7am–6pm">
-                <div className="halal-bar-inner" aria-hidden="true">
-                    <span>&#9670; 100% HALAL CERTIFIED &#9670; NORWOOD, JOHANNESBURG &#9670; MON–SAT: 7AM–6PM &#9670;</span>
-                    <span>&#9670; 100% HALAL CERTIFIED &#9670; NORWOOD, JOHANNESBURG &#9670; MON–SAT: 7AM–6PM &#9670;</span>
+            <div className="site-header">
+                {/* Halal announcement bar — two copies for seamless marquee loop */}
+                <div className="halal-bar" aria-label="100% Halal Certified • Norwood, Johannesburg • Mon–Sat 7am–6pm">
+                    <div className="halal-bar-inner" aria-hidden="true">
+                        <span>&#9670; 100% HALAL CERTIFIED &#9670; NORWOOD, JOHANNESBURG &#9670; MON–SAT: 7AM–6PM &#9670;</span>
+                        <span>&#9670; 100% HALAL CERTIFIED &#9670; NORWOOD, JOHANNESBURG &#9670; MON–SAT: 7AM–6PM &#9670;</span>
+                    </div>
                 </div>
-            </div>
 
-            {/* Navbar */}
-            <header className="navbar">
-                <div className="navbar-container">
+                {/* Navbar */}
+                <header className="navbar">
+                    <div className="navbar-container">
                     {/* Logo */}
                     <div className="nc-left">
                         <Link to='/'>
@@ -144,8 +145,9 @@ export const NavBar = () => {
                             <CartWidget />
                         </Link>
                     </nav>
-                </div>
-            </header>
+                    </div>
+                </header>
+            </div>
         </>
     )
 }

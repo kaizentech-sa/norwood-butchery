@@ -1,4 +1,17 @@
 /* ════════════════════════════════════
+   Site Header (halal bar + navbar)
+════════════════════════════════════ */
+.site-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: var(--black-90);
+}
+
+/* ════════════════════════════════════
    Halal Announcement Bar
 ════════════════════════════════════ */
 .halal-bar {
@@ -252,8 +265,7 @@
 }
 
 /* ── Lower navbar behind fullscreen overlays (hamburger / modal) ── */
-body.scroll-locked .navbar,
-body.scroll-locked .halal-bar {
+body.scroll-locked .site-header {
     z-index: 1;
 }
 

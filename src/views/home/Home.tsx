@@ -8,8 +8,6 @@ import aboutUsImg from 'assets/img/others/aside.webp';
 // Components
 import { BestsellersSection } from './components/BestsellersSection';
 import { CategoryProductsSection } from './components/CategoryProductsSection';
-// Utils
-import { isIOS } from 'utils/isIOS';
 // Styles
 import './Home.css';
 
@@ -82,10 +80,7 @@ export const Home = () => {
             <div className="home">
 
                 {/* Hero Section */}
-                <section
-                    style={isIOS() ? {backgroundAttachment: 'initial'} : {}}
-                    className="hero-section"
-                >
+                <section className="hero-section">
                     <div className="hs-greeting">
                         <div className="hs-badge">&#9670; HALAL CERTIFIED &#9670;</div>
                         <h1>Norwood's Finest<br />Halal Butchery</h1>

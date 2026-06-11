@@ -5,16 +5,16 @@
     background-image: url(../../assets/img/others/banner.webp);
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
+    background-attachment: scroll;
     overflow: hidden;
     width: 100%;
     max-width: 100%;
-    height: 100svh;
-    min-height: 500px;
+    height: calc(100svh - var(--site-header-height));
+    min-height: 460px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
-    margin-top: -5.6em;
+    margin-top: calc(-1 * var(--site-header-height));
     position: relative;
 }
 
@@ -87,15 +87,31 @@
     }
 }
 
+@media (min-width: 480px) {
+    :root {
+        --site-header-height: 6.25rem;
+    }
+}
+
 @media (min-width: 598px) {
     .hero-section {
         justify-content: flex-end;
         align-items: center;
+        background-attachment: fixed;
+        height: 100svh;
+        min-height: 500px;
+        margin-top: calc(-1 * var(--site-header-height));
     }
 
     .hs-greeting {
         margin-right: 3em;
         margin-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    :root {
+        --site-header-height: 7rem;
     }
 }
 

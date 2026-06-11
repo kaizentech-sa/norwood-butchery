@@ -35,6 +35,9 @@
     --footerLines:     var(--gold-dark);
     --viewLines:       #2E2E2E;
 
+    /* ── Layout ── */
+    --site-header-height: 5.75rem;
+
     /* ── Fonts ── */
     --displayFont: 'Cinzel', serif;
     --mainFont:    'Calistoga', cursive;

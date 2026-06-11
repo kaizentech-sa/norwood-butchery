@@ -102,17 +102,25 @@ export const HamburguerMenuCanvas = ({ hamburguerMenuOpen, closeHamburguerMenu, 
                 </div>
 
                 {/* Category Links */}
-                <div className="cat-links" style={viewCategories ? { transform: 'translateX(0)' } : { opacity: 0 }}>
-                    {categoryLinks.map((item) => (
-                        <Link
-                            key={item.slug}
-                            className="navbar-link nbl-hm"
-                            to={`/shop/${item.slug}`}
-                            onClick={handleNavClick}
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
+                <div className={`cat-links${viewCategories ? ' cat-links--open' : ''}`}>
+                    <p className="cat-links-heading">Categories</p>
+                    <div className="cat-links-scroll" role="list">
+                        {categoryLinks.length === 0 ? (
+                            <p className="cat-links-empty">No categories available</p>
+                        ) : (
+                            categoryLinks.map((item) => (
+                                <Link
+                                    key={item.slug}
+                                    className="navbar-link nbl-hm cat-link-item"
+                                    to={`/shop/${item.slug}`}
+                                    onClick={handleNavClick}
+                                    role="listitem"
+                                >
+                                    {item.name}
+                                </Link>
+                            ))
+                        )}
+                    </div>
                 </div>
 
                 {/* Halal badge */}
